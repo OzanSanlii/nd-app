@@ -1,11 +1,196 @@
 <div class="absolute inset-0 min-w-0 text-center overflow-auto print:overflow-visible bg-cyan-400" cdkScrollable>
+    <div
+            class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between p-6 sm:py-8 sm:px-10 border-b bg-card dark:bg-transparent">
+            <div class="flex-1 min-w-0">
+                <!-- Breadcrumbs -->
+                <div>
+                    <div class="hidden sm:flex flex-wrap items-center font-medium">
+                        <div>
+                            <a class="whitespace-nowrap text-primary-500 text-white">Ana Sayfa</a>
+                        </div>
+                        <div class="flex items-center ml-1 whitespace-nowrap">
+                            <mat-icon class="icon-size-5 text-secondary"
+                                [svgIcon]="'heroicons_mini:chevron-right'"></mat-icon>
+                            <a class="ml-1 text-primary-500 text-white">Hasta Listesi</a>
+                        </div>
+                        <div class="flex items-center ml-1 whitespace-nowrap">
+                            <mat-icon class="icon-size-5 text-secondary"
+                                [svgIcon]="'heroicons_mini:chevron-right'"></mat-icon>
+                            <span class="ml-1 text-secondary text-white">Hasta Detay</span>
+                        </div>
+                    </div>
+                    <div class="flex sm:hidden">
+                        <a class="inline-flex items-center -ml-1.5 text-secondary font-medium">
+                            <mat-icon class="icon-size-5 text-secondary"
+                                [svgIcon]="'heroicons_solid:chevron-left'"></mat-icon>
+                            <span class="ml-1">Back</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
     <div class="inline-block w-full p-6 sm:p-10 text-left print:p-0">
-        <div class="m-auto w-11/12 md:w-320 p-4 md:p-16 mt-22 rounded-2xl shadow bg-card print:w-auto print:rounded-none print:shadow-none print:bg-transparent bg-white">
+        <div class="m-auto w-11/12 md:w-320 p-4 md:p-16 mt-22 rounded-2xl sshw bg-card print:w-auto print:rounded-none print:shadow-none print:bg-transparent bg-white">
+            <div class="flex justify-between items-start flex-col sm:flex-row">
+                <div class="w-full sm:w-1/2 mb-4 sm:mb-0">
+                    <div class="relative flex h-24 w-32 ...">
+                        <div class="absolute left-0 top-0 h-20 w-32 font-semibold ...">Ad / Soyad : Ozan Şanlı</div>
+                    </div>
+                </div>
+                <div class="w-full sm:w-1/3">
+                    <div class="relative flex h-24 w-32 ...">
+                        <div class="absolute top-0 right-0 h-20 w-32 font-semibold ...">Dosya Numarası : 005441558742655578</div>
+                    </div>
+                </div>
+            </div>
+            
+            <mat-tab-group class="mx-auto">
+                <mat-tab label="Kişisel Bilgiler">
+                    <h2 class="mb-2 text-lg font-semibold text-orange-600 dark:text-white pt-7">Hasta Detay Ekranı : </h2>
+                    <ul class="max-w-md space-y-6 text-gray-500 list-none list-inside dark:text-gray-400 pt-7">
+                        <li>
+                            Ad / Soyad : 
+                        </li>
+                        <li>
+                            Doğum Yeri : 
+                        </li>
+                        <li>
+                            Doğum Tarihi : 
+                        </li>
+                        <li>
+                            Meslek : 
+                        </li>
+                        <li>
+                            Cinsiyet : 
+                        </li>
+                        <li>
+                            Medeni Durum : 
+                        </li>
+                        <li>
+                            Kan Grubu : 
+                        </li>
+                        <li>
+                            Ev Telefonu : 
+                        </li>
+                        <li>
+                            Cep Telefonu : 
+                        </li>
+                        <li>
+                            İş Telefonu : 
+                        </li>
+                        <li>
+                            Ev Adresi : 
+                        </li>
+                        <li>
+                            Semt : 
+                        </li>
+                        <li>
+                            İl : 
+                        </li>
+                        <li>
+                            İş Adresi : 
+                        </li>
+                        <li>
+                            Email : 
+                        </li>
+                        <li>
+                            Not : 
+                        </li>
+                    </ul>
+                </mat-tab>
+                <mat-tab label="Gelişler"> 
+                    
+                    <h2 class="mb-2 text-lg font-semibold text-orange-600 dark:text-white pt-7">Geliş 1 : </h2>
+                    <ul class="max-w-md space-y-6 text-gray-500 list-none list-inside dark:text-gray-400 pt-3 pl-16">
+                        <li>
+                            Geliş Tarihi : 
+                        </li>
+                        <li>
+                            Çıkış Tarihi : 
+                        </li>
+                        <li>
+                            Referans : 
+                        </li>
+                        <li>
+                            Poliklinik : 
+                        </li>
+                        <li>
+                            Doktor : 
+                        </li>
+                        
+                    </ul>
 
+                    <h2 class="mb-2 text-lg font-semibold text-orange-600 dark:text-white pt-7">Geliş 2 : </h2>
+                    <ul class="max-w-md space-y-6 text-gray-500 list-none list-inside dark:text-gray-400 pt-3 pl-16">
+                        <li>
+                            Geliş Tarihi : 
+                        </li>
+                        <li>
+                            Çıkış Tarihi : 
+                        </li>
+                        <li>
+                            Referans : 
+                        </li>
+                        <li>
+                            Poliklinik : 
+                        </li>
+                        <li>
+                            Doktor : 
+                        </li>
+                        
+                    </ul>
+                    <h2 class="mb-2 text-lg font-semibold text-orange-600 dark:text-white pt-7">Geliş 3 : </h2>
+                    <ul class="max-w-md space-y-6 text-gray-500 list-none list-inside dark:text-gray-400 pt-3 pl-16">
+                        <li>
+                            Geliş Tarihi : 
+                        </li>
+                        <li>
+                            Çıkış Tarihi : 
+                        </li>
+                        <li>
+                            Referans : 
+                        </li>
+                        <li>
+                            Poliklinik : 
+                        </li>
+                        <li>
+                            Doktor : 
+                        </li>
+                        
+                    </ul>
 
+                </mat-tab>
+                <mat-tab label="Detaylı Bilgi"> 
+                    <h2 class="mb-2 text-lg font-semibold text-orange-600 dark:text-white pt-7 pb-4">Bilgi Ekranı  </h2>
+                    <div class="m-auto w-11/12 md:w-320 p-4 md:p-16 mt-22 border border-orange-600 bg-card print:w-auto print:rounded-none print:shadow-none print:bg-transparent bg-white "></div>
+                </mat-tab>
+                <mat-tab label="Not Ekle">
+                    <h2 class="mb-2 text-lg font-semibold text-orange-600 dark:text-white pt-7 pb-4">Not Ekleme Ekranı  </h2>
+                        <mat-form-field class="w-11/12 md:w-320 p-4 md:p-16 mt-22 mb-4 border border-orange-600 bg-card print:w-auto print:rounded-none print:shadow-none print:bg-transparent bg-white " style="background-color: rgba(255, 255, 255, 0.9);">
+                            <mat-label>Not Giriniz</mat-label>
+                            <textarea class="" matInput placeholder=""></textarea>
+                        </mat-form-field>
+                    <br>
+                    <div class="flex items-center flex-wrap">
+                        <div class="w-4/12 md:w-320 p-4 md:p-16 mt-22 border border-orange-600 bg-card print:w-auto print:rounded-none print:shadow-none print:bg-transparent bg-white ">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of clcClintock, a Latin professor at Hampden-Sydney College in Virginia, lookons 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
 
-
-
+                            The stand Rackham.</div>
+                        <br>
+                        <div class="flex-row pt-4 pl-12">
+                            <button type="button" class="text-white bg-gradient-to-r from-cyan-500 via-cyan-500 to-cyan-400 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Resim Çek</button>
+                            <button type="button" class="text-white bg-gradient-to-r from-cyan-500 via-cyan-500 to-cyan-400 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Resim Ekle</button>
+                            <button type="button" class="text-white bg-gradient-to-r from-cyan-500 via-cyan-500 to-cyan-400 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Kaydet</button>
+                            <button type="button" class="text-white bg-gradient-to-r from-orange-600 via-orange-600 to-orange-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-orange-500 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Gönder</button>
+                        </div>
+                        
+                    </div>
+                    
+                    
+                    
+                </mat-tab>
+              </mat-tab-group>
+            
         </div>
     </div>
 </div>

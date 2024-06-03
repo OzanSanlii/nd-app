@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
 import { CommonModule, NgFor } from '@angular/common';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { MatIconModule } from '@angular/material/icon';
 
 
 
 @Component({
   selector: 'hasta-listesi',
   standalone: true,
-  imports: [NgFor, CommonModule, RouterOutlet, RouterLink, RouterLinkActive],
+  imports: [NgFor, CommonModule, RouterOutlet, RouterLink, RouterLinkActive, MatIconModule ],
   templateUrl: './hasta-listesi.component.html',
   styleUrl: './hasta-listesi.component.scss'
 })
