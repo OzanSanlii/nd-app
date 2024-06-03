@@ -1,17 +1,19 @@
 import { Component } from '@angular/core';
 import { CommonModule, NgFor } from '@angular/common';
+import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
 
 
 @Component({
   selector: 'hasta-listesi',
   standalone: true,
-  imports: [NgFor],
+  imports: [NgFor, CommonModule, RouterOutlet, RouterLink, RouterLinkActive],
   templateUrl: './hasta-listesi.component.html',
   styleUrl: './hasta-listesi.component.scss'
 })
 
 export class HastaListesiComponent {
+  constructor(private router: Router) {}
 
   filteredHastaBilgileri: any[] = []
   searchText : string = '';
@@ -32,8 +34,13 @@ export class HastaListesiComponent {
 
   ngOnInit(): void{
     console.log(this.heroes);
+    this.filteredHastaBilgileri = this.heroes
   }
 
+
+  goToHastaDetay(): void {
+    this.router.navigate(['/hasta-detay']);
+  }
 
   searchName($event:Event){
     const input = $event.target as HTMLInputElement;

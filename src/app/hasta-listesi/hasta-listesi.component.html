@@ -50,7 +50,8 @@
                     {{hero.kayitNumarasi}}
                 </td>
                 <td class="px-6 py-4">
-                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Bilgi => </a>
+                    <button routerLink="/hasta-detay" routerLinkActive="active" ariaCurrentWhenActive="page" class="font-medium text-blue-600 dark:text-blue-500 hover:underline" type="button" (click)="goToHastaDetay()">Bilgi => </button>
+                    <router-outlet></router-outlet>
                 </td>
             </tr>
             
