@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule, NgFor } from '@angular/common';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
+import { HastaData, HastaDataService } from '../hasta-data/hasta-data';
 
 
 
@@ -13,11 +14,17 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './hasta-listesi.component.scss'
 })
 
-export class HastaListesiComponent {
-  constructor(private router: Router) {}
+export class HastaListesiComponent implements OnInit {
+  constructor(
+    private router: Router,
+    private _hastaDataService: HastaDataService,
+    private cdr: ChangeDetectorRef) {}
 
+  hastasData : HastaData[] = [];
+  hastaData : HastaData | null = null;
   filteredHastaBilgileri: any[] = []
   searchText : string = '';
+  dosyano : string ='';
 
   
   heroes = [
@@ -26,7 +33,7 @@ export class HastaListesiComponent {
     {  name: 'Alcune' , kayitNumarasi: '72455345'},
     {  name: 'xigrealf' , kayitNumarasi: '473567' },
     {  name: 'Magneta' , kayitNumarasi: '224566'},
-    {  name: 'RubberMan' , kayitNumarasi: '62457245'},
+    {  name: 'RubberMan' , kayitNumarasi: '62457245'}, 
     {  name: 'Dynama' , kayitNumarasi: '5695198'},
     {  name: 'Dr IQ' , kayitNumarasi: '561965195'},
     {  name: 'Magma' , kayitNumarasi: '595498'},
@@ -34,8 +41,11 @@ export class HastaListesiComponent {
   ];
 
   ngOnInit(): void{
-    console.log(this.heroes);
-    this.filteredHastaBilgileri = this.heroes
+    this._hastaDataService.fetchHastaDataByDosyano(this.dosyano);
+    this._hastaDataService.hastaData$.subscribe((data) =>{
+      this.hastaData = data;
+      this.cdr.detectChanges();
+    })
   }
 
 
