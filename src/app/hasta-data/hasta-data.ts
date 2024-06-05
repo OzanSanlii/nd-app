@@ -33,12 +33,12 @@ export class HastaDataService{
         this._hastasData.next(value);
     }
 
-    setHastaData(minimalProduct: HastaData) {
-        this.hastaData.next(minimalProduct);
+    setHastaData(hData: HastaData) {
+        this.hastaData.next(hData);
     }
 
-    async getHastaData(dosyano: string): Promise<HastaData> {
-        const result$ = this._dataService.getData(`Kimlik/SearchByName/${dosyano}`).pipe(
+    async getHastaData(_dosyaNo: string): Promise<HastaData> {
+        const result$ = this._dataService.getData(`Kimlik/${_dosyaNo}`).pipe(
             map((response: any) => {
                 return response.data; 
             }));
@@ -50,18 +50,21 @@ export class HastaDataService{
         return this.hastaData.getValue();
     }
 
-    fetchHastaDataByDosyano(dosyano: string): void {
+    fetchHastaDataByDosyano(): void {
         console.log("HERE");
-        this._dataService.getData(`Kimlik/SearchByName/${dosyano}`).pipe(
+        this._dataService.getData(`GetData`).pipe(
             tap((res: any) => {
                 this.setHastaData(res.data);
+                console.log("bura", res.data)
             })
         )
-            .subscribe({
-                // next: data => console.log('Data fetched successfully', data),
-                error: err => console.error('Error fetching data', err)
-            });;
+        .subscribe({
+            next: () => console.log('Data fetched successfully'),
+            error: err => console.error('Error fetching data', err)
+        });
     }
+    
+    
     
 
 }

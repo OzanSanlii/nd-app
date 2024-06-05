@@ -41,39 +41,45 @@ export class HastaListesiComponent implements OnInit {
   ];
 
   ngOnInit(): void{
-    this._hastaDataService.fetchHastaDataByDosyano(this.dosyano);
+    this._hastaDataService.fetchHastaDataByDosyano;
     this._hastaDataService.hastaData$.subscribe((data) =>{
       this.hastaData = data;
       this.cdr.detectChanges();
     })
   }
-
+ 
 
   goToHastaDetay(): void {
     this.router.navigate(['/hasta-detay']);
   }
 
   searchName($event:Event){
-    const input = $event.target as HTMLInputElement;
-    console.log(input.value);
+  const input = $event.target as HTMLInputElement;
+  console.log(input.value);
 
-    this.filteredHastaBilgileri = this.heroes.filter((hastalar) => {
-      if(
-        hastalar.name.toLowerCase().includes(input.value.toLowerCase())
-      ) {
-        return hastalar;
-      }
-      if(
-        hastalar.kayitNumarasi.includes(input.value)
+  if (this.hastaData !== null) {
+    const hastaDataArray: HastaData[] = [this.hastaData];
+    console.log("burararara",this.hastasData)
+    this.hastasData = hastaDataArray.filter((hastalar) => {
+      if (
+        hastalar.ad.toLowerCase().includes(input.value.toLowerCase()) ||
+        hastalar.soyad.toLowerCase().includes(input.value.toLowerCase()) ||
+        hastalar.dosyano.includes(input.value)
       ){
-        return hastalar;
-      }
+      return hastalar;
+    }
+    else{
+      return console.log("nono")
+    }
+  });
 
-      else{
-        return console.log("nono")
-      }
-    });
+};
+}}
 
-  };
-  
-}
+
+
+
+
+
+
+
