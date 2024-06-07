@@ -1,12 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { ChangeDetectorRef, Component } from '@angular/core';
+import { ActivatedRoute, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatListModule} from '@angular/material/list';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatCardModule } from "@angular/material/card"; 
 import { MatInputModule } from "@angular/material/input";
 import { MatIconModule } from '@angular/material/icon';
+import { HastaData, HastaDataService } from '../hasta-data/hasta-data';
 
 @Component({
   selector: 'hasta-detay',
@@ -17,8 +18,23 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class HastaDetayComponent {
 
-  constructor(private router: Router) {}
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private _hastaDataService: HastaDataService,
+    private cdr: ChangeDetectorRef) {}
+
+    hastasData : HastaData[] = [];
+    initialHastasData : HastaData[] = [];
+    hastaData : HastaData | null = null;
+    filteredHastaBilgileri: any[] = []
+    searchText : string = '';
+    dosyano : string =''; 
 
   
-
+  ngOnInit(): void{
+    this.route.paramMap.subscribe(params =>{
+      //this.dosyano = params.get('dosyano')
+    })
+  }
 }

@@ -63,7 +63,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let hero of filteredHastaBilgileri" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+            <tr *ngFor="let hasta of hastasData" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                 <td class="w-4 p-4">
                     <div class="avatar">
                         <div class="mask mask-squircle w-12 h-12">
@@ -72,10 +72,10 @@
                     </div>
                 </td>
                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    {{ hero.name }}
+                    {{ hasta.ad}} {{hasta.soyad}}
                 </th>
                 <td class="px-6 py-4">
-                    {{hero.kayitNumarasi}}
+                    {{hasta.dosyano}}
                 </td>
                 <td class="px-6 py-4">
                     <button routerLink="/hasta-detay" routerLinkActive="active" ariaCurrentWhenActive="page" class="font-medium text-blue-600 dark:text-blue-500 hover:underline" type="button" (click)="goToHastaDetay()">Bilgi => </button>

@@ -15,66 +15,59 @@ import { HastaData, HastaDataService } from '../hasta-data/hasta-data';
 })
 
 export class HastaListesiComponent implements OnInit {
+
+  
   constructor(
+
     private router: Router,
     private _hastaDataService: HastaDataService,
     private cdr: ChangeDetectorRef) {}
 
   hastasData : HastaData[] = [];
+  initialHastasData : HastaData[] = [];
   hastaData : HastaData | null = null;
   filteredHastaBilgileri: any[] = []
   searchText : string = '';
   dosyano : string ='';
 
-  
-  heroes = [
-    {  name: 'Ozan Şanlı', kayitNumarasi: '542324' },
-    {  name: 'Anıl Demiroğlu' , kayitNumarasi: '4567245'},
-    {  name: 'Alcune' , kayitNumarasi: '72455345'},
-    {  name: 'xigrealf' , kayitNumarasi: '473567' },
-    {  name: 'Magneta' , kayitNumarasi: '224566'},
-    {  name: 'RubberMan' , kayitNumarasi: '62457245'}, 
-    {  name: 'Dynama' , kayitNumarasi: '5695198'},
-    {  name: 'Dr IQ' , kayitNumarasi: '561965195'},
-    {  name: 'Magma' , kayitNumarasi: '595498'},
-    {  name: 'Tornado' , kayitNumarasi: '12246346'}
-  ];
-
-  ngOnInit(): void{
-    this._hastaDataService.fetchHastaDataByDosyano;
-    this._hastaDataService.hastaData$.subscribe((data) =>{
-      this.hastaData = data;
-      this.cdr.detectChanges();
-    })
+  ngOnInit(): void {
+    this._hastaDataService.fetchHastaDataByDosyano();
+    this._hastaDataService.hastasData$.subscribe((data) =>{
+      this.hastasData = data;
+      this.initialHastasData = data;
+      console.log("lalal", this.hastasData);
+      this.cdr.detectChanges(); 
+    });
   }
- 
+  
+
 
   goToHastaDetay(): void {
-    this.router.navigate(['/hasta-detay']);
+    this.router.navigate(['/hasta-detay/']);
   }
 
-  searchName($event:Event){
-  const input = $event.target as HTMLInputElement;
-  console.log(input.value);
 
-  if (this.hastaData !== null) {
-    const hastaDataArray: HastaData[] = [this.hastaData];
-    console.log("burararara",this.hastasData)
-    this.hastasData = hastaDataArray.filter((hastalar) => {
-      if (
-        hastalar.ad.toLowerCase().includes(input.value.toLowerCase()) ||
-        hastalar.soyad.toLowerCase().includes(input.value.toLowerCase()) ||
-        hastalar.dosyano.includes(input.value)
-      ){
-      return hastalar;
+  searchName($event:Event){
+    const input = ($event.target as HTMLInputElement).value.toLowerCase();
+    if (this.hastasData !== null) {
+      // Filtreleme işlemi
+      const filteredData = this.hastasData.filter((hastalar) => {
+        return (
+          hastalar.ad.toLowerCase().includes(input) ||
+          hastalar.soyad.toLowerCase().includes(input) ||
+          hastalar.dosyano.includes(input)
+        );
+      });
+  
+      // Filtre sonucunu atama
+      this.hastasData = input ? filteredData : this.initialHastasData;
     }
-    else{
-      return console.log("nono")
-    }
-  });
+  }
+  
+  
 
 };
-}}
+
 
 
 

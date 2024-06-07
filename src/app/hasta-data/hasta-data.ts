@@ -37,6 +37,7 @@ export class HastaDataService{
         this.hastaData.next(hData);
     }
 
+
     async getHastaData(_dosyaNo: string): Promise<HastaData> {
         const result$ = this._dataService.getData(`Kimlik/${_dosyaNo}`).pipe(
             map((response: any) => {
@@ -50,19 +51,31 @@ export class HastaDataService{
         return this.hastaData.getValue();
     }
 
+    fetchFullDetail(dosyano: string): void {
+        this._dataService.getData(`${dosyano}`).pipe(
+            tap((response: any) => {
+                this.setHastaData(response);
+            })
+        )
+            .subscribe({
+                next: data => console.log('Data geldi 2', data),
+                error: err => console.error('Error fetching data', err)
+            });
+    }
+
     fetchHastaDataByDosyano(): void {
         console.log("HERE");
         this._dataService.getData(`GetData`).pipe(
             tap((res: any) => {
-                this.setHastaData(res.data);
-                console.log("bura", res.data)
+                this.setHastasData(res);
             })
         )
-        .subscribe({
-            next: () => console.log('Data fetched successfully'),
-            error: err => console.error('Error fetching data', err)
-        });
+            .subscribe({
+                // next: data => console.log('Data fetched successfully', data),
+                error: err => console.error('Error fetching data', err)
+            });
     }
+    
     
     
     

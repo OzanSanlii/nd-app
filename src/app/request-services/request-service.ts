@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 
-const baseUrl = "http://localhost:5199/api/";
+const baseUrl = "http://localhost:5000/api/Kimlik/";
 
 @Injectable({
     providedIn: 'root'
