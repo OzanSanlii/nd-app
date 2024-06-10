@@ -8,6 +8,8 @@ import { MatCardModule } from "@angular/material/card";
 import { MatInputModule } from "@angular/material/input";
 import { MatIconModule } from '@angular/material/icon';
 import { HastaData, HastaDataService } from '../hasta-data/hasta-data';
+import { HastaGelis, HastaGelisService } from '../hasta-gelisler/hasta-gelisler';
+import { HastaBilgi, HastaBilgiService } from '../hasta-bilgi/hasta-bilgi';
 
 @Component({
   selector: 'hasta-detay',
@@ -22,19 +24,49 @@ export class HastaDetayComponent {
     private route: ActivatedRoute,
     private router: Router,
     private _hastaDataService: HastaDataService,
+    private _hastaGelisService : HastaGelisService,
+    private _hastaBilgiService : HastaBilgiService,
     private cdr: ChangeDetectorRef) {}
 
     hastasData : HastaData[] = [];
     initialHastasData : HastaData[] = [];
     hastaData : HastaData | null = null;
+    hastasBilgi : HastaBilgi[]= [];
+    hastaBilgi : HastaBilgi | null = null;
     filteredHastaBilgileri: any[] = []
     searchText : string = '';
-    dosyano : string =''; 
+    dosyano : string | null = ''; 
+    hastaGelis : HastaGelis | null = null;
 
   
-  ngOnInit(): void{
-    this.route.paramMap.subscribe(params =>{
-      //this.dosyano = params.get('dosyano')
-    })
+    onGonderClick(){
+      
+
+    }
+
+
+    ngOnInit(): void {
+      this.route.params.subscribe(params => {
+          const dosyaNo = params['dosyano'];
+          console.log('Dosya Numarası:', dosyaNo);
+          this._hastaDataService.fetchFullDetail(dosyaNo);
+          this._hastaDataService.hastaData$.subscribe((data) => {
+              this.hastaData = data;
+          });
+
+          this._hastaGelisService.fetchHastaGelis(dosyaNo);
+          this._hastaGelisService.hastaGelis$.subscribe((data) => {
+            this.hastaGelis = data;
+          });
+
+          this._hastaBilgiService.fetchBilgi(dosyaNo);
+          this._hastaBilgiService.hastaBilgi$.subscribe((data) =>{
+            this.hastaBilgi = data;
+            
+          })
+      });
+    
   }
-}
+  }
+  
+

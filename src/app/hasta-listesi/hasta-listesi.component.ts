@@ -42,8 +42,9 @@ export class HastaListesiComponent implements OnInit {
   
 
 
-  goToHastaDetay(): void {
-    this.router.navigate(['/hasta-detay/']);
+  goToHastaDetay(dosyano :string): void {
+    console.log("url geldi", dosyano);
+    this.router.navigate(['/hasta-detay/', dosyano]);
   }
 
 
@@ -52,6 +53,19 @@ export class HastaListesiComponent implements OnInit {
     if (this.hastasData !== null) {
       // Filtreleme işlemi
       const filteredData = this.hastasData.filter((hastalar) => {
+        let nameParts = input.split(" ");
+        if(nameParts.length > 1)
+          {
+            let myName = "";
+            let mySurname = "";
+            for(let i = 0; i<nameParts.length -1; i++)
+              {
+                myName += nameParts[i] + " ";
+              }
+              myName = myName.slice(0, -1);
+              mySurname = nameParts[nameParts.length - 1];
+              return (hastalar.ad.toLowerCase().includes(myName) && (hastalar.soyad.toLowerCase().includes(mySurname) || hastalar.dosyano.includes(input)));
+          }
         return (
           hastalar.ad.toLowerCase().includes(input) ||
           hastalar.soyad.toLowerCase().includes(input) ||

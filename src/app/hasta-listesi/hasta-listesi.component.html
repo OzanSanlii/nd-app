@@ -78,7 +78,7 @@
                     {{hasta.dosyano}}
                 </td>
                 <td class="px-6 py-4">
-                    <button routerLink="/hasta-detay" routerLinkActive="active" ariaCurrentWhenActive="page" class="font-medium text-blue-600 dark:text-blue-500 hover:underline" type="button" (click)="goToHastaDetay()">Bilgi => </button>
+                    <button routerLink="/hasta-detay" routerLinkActive="active" ariaCurrentWhenActive="page" class="font-medium text-blue-600 dark:text-blue-500 hover:underline" type="button" (click)="goToHastaDetay(hasta.dosyano)">Bilgi => </button>
                     <router-outlet></router-outlet>
                 </td>
             </tr>

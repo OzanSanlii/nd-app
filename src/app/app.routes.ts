@@ -11,7 +11,7 @@ export const routes: Routes = [
     { path:'', component: AnaSayfaComponent},
     { path: '', redirectTo: '/ana-sayfa', pathMatch: 'full' }, 
     { path: 'ana-sayfa', component: AnaSayfaComponent },
-    { path: 'hasta-detay', component: HastaDetayComponent }
+    { path: 'hasta-detay/:dosyano', component: HastaDetayComponent }
 ];
 
 export const appConfig: ApplicationConfig = {
