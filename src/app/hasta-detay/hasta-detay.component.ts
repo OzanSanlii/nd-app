@@ -10,11 +10,14 @@ import { MatIconModule } from '@angular/material/icon';
 import { HastaData, HastaDataService } from '../hasta-data/hasta-data';
 import { HastaGelis, HastaGelisService } from '../hasta-gelisler/hasta-gelisler';
 import { HastaBilgi, HastaBilgiService } from '../hasta-bilgi/hasta-bilgi';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'hasta-detay',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, RouterLink, RouterLinkActive, MatTabsModule, MatListModule, MatFormFieldModule, MatCardModule, MatInputModule, MatIconModule],
+  imports: [CommonModule, RouterOutlet, RouterLink, RouterLinkActive, MatTabsModule, MatListModule, MatFormFieldModule, MatCardModule, MatInputModule, MatIconModule,
+    FormsModule],
   templateUrl: './hasta-detay.component.html',
   styleUrl: './hasta-detay.component.scss'
 })
@@ -37,13 +40,26 @@ export class HastaDetayComponent {
     searchText : string = '';
     dosyano : string | null = ''; 
     hastaGelis : HastaGelis | null = null;
+    hastaBilgiText: string | null = ''; 
+    not: string | null = '';
 
-  
-    onGonderClick(){
-      
+    
 
+    getHastaBilgi() {
+      if (this.hastaBilgi?.hastabilgi != null)
+      this.hastaBilgiText = this.hastaBilgi?.hastabilgi;
     }
 
+    kaydet(): void {
+      // Burada notunuzu bir veritabanına veya başka bir veri saklama yöntemine kaydedebilirsiniz.
+      console.log('Not kaydedildi:', this.not);
+      alert("Not Kaydedildi")
+      // Örnek: Servis kullanarak notu kaydetmek için:
+      // this._hastaDataService.kaydetNot(this.not);
+    }
+  
+
+    
 
     ngOnInit(): void {
       this.route.params.subscribe(params => {
@@ -66,6 +82,7 @@ export class HastaDetayComponent {
           })
       });
     
+      
   }
   }
   

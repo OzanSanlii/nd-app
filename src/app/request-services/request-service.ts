@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 
-const baseUrl = "http://localhost:5199/api/";
+const baseUrl = "http://localhost:5000/api/";
 
 @Injectable({
     providedIn: 'root'
@@ -20,5 +20,11 @@ export class DataService {
                 'Accept': 'application/json'
             }
         });
+    }
+
+    putData(url: string, data: any) {
+        url = baseUrl + url;
+        
+        return this._httpClient.put(url, data);
     }
 }

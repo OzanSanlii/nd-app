@@ -3,13 +3,14 @@ import { CommonModule, NgFor } from '@angular/common';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { HastaData, HastaDataService } from '../hasta-data/hasta-data';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 
 
 @Component({
   selector: 'hasta-listesi',
   standalone: true,
-  imports: [NgFor, CommonModule, RouterOutlet, RouterLink, RouterLinkActive, MatIconModule ],
+  imports: [NgFor, CommonModule, RouterOutlet, RouterLink, RouterLinkActive, MatIconModule, MatPaginatorModule ],
   templateUrl: './hasta-listesi.component.html',
   styleUrl: './hasta-listesi.component.scss'
 })
@@ -29,6 +30,8 @@ export class HastaListesiComponent implements OnInit {
   filteredHastaBilgileri: any[] = []
   searchText : string = '';
   dosyano : string ='';
+
+  
 
   ngOnInit(): void {
     this._hastaDataService.fetchHastaDataByDosyano();
@@ -51,7 +54,6 @@ export class HastaListesiComponent implements OnInit {
   searchName($event:Event){
     const input = ($event.target as HTMLInputElement).value.toLowerCase();
     if (this.hastasData !== null) {
-      // Filtreleme işlemi
       const filteredData = this.hastasData.filter((hastalar) => {
         let nameParts = input.split(" ");
         if(nameParts.length > 1)

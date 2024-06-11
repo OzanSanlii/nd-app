@@ -9,13 +9,14 @@ export class HastaBilgi {
     kartno: number | null;
     gelistarih : Date;
     hastabilgi : string;
+    yeninot : string;
 
     constructor(data:any){
         this.dosyano = data.dosyano || "";
         this.kartno = data.kartno || null;
         this.gelistarih = new Date(data.gelistarih);
         this.hastabilgi = data.hastabilgi || "";
-
+        this.yeninot = data.yeninot || "";
     }
 
 }
@@ -43,4 +44,9 @@ export class HastaBilgiService{
                 error: err => console.error('Error fetching data', err)
             });
     }
+
+    // kaydet(not: string): Observable<any> {
+    //     this._dataService.putData()
+    //   }
+
 }
