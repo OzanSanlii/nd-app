@@ -52,7 +52,6 @@ export class HastaDetayComponent {
 
     kaydet(): void {
       // Burada notunuzu bir veritabanına veya başka bir veri saklama yöntemine kaydedebilirsiniz.
-      console.log('Not kaydedildi:', this.not);
       alert("Not Kaydedildi")
       // Örnek: Servis kullanarak notu kaydetmek için:
       // this._hastaDataService.kaydetNot(this.not);
