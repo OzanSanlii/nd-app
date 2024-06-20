@@ -24,7 +24,5 @@ export class DataService {
 
     putData(url: string, data: any) {
         url = baseUrl + url;
-        
-        return this._httpClient.put(url, data);
-    }
-}
+        return this._httpClient.put(url, data, {});
+}}

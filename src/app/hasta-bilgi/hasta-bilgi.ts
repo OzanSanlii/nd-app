@@ -1,4 +1,4 @@
-import { BehaviorSubject, Observable, firstValueFrom, map, tap } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, firstValueFrom, map, tap } from 'rxjs';
 import { Injectable } from "@angular/core";
 import { DataService } from '../request-services/request-service';
 //import { ResponseClass } from '../response-class/response-class';
@@ -45,8 +45,18 @@ export class HastaBilgiService{
             });
     }
 
-    // kaydet(not: string): Observable<any> {
-    //     this._dataService.putData()
-    //   }
+    putData(data: any): Observable<any> {
+        return this._dataService.putData('Bilgi', data).pipe(
+            tap((response: any) => {
+                console.log('Put başarili', response);
+                
+            }),
+            catchError(error => {
+                console.error('Put hatasi', error);
+                throw error; 
+            })
+        );
+    }
+
 
 }

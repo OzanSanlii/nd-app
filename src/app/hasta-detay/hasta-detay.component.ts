@@ -12,6 +12,7 @@ import { HastaGelis, HastaGelisService } from '../hasta-gelisler/hasta-gelisler'
 import { HastaBilgi, HastaBilgiService } from '../hasta-bilgi/hasta-bilgi';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { DataService } from '../request-services/request-service';
 
 @Component({
   selector: 'hasta-detay',
@@ -29,6 +30,7 @@ export class HastaDetayComponent {
     private _hastaDataService: HastaDataService,
     private _hastaGelisService : HastaGelisService,
     private _hastaBilgiService : HastaBilgiService,
+    private _requestSerivce : DataService,
     private cdr: ChangeDetectorRef) {}
 
     hastasData : HastaData[] = [];
@@ -50,13 +52,19 @@ export class HastaDetayComponent {
       this.hastaBilgiText = this.hastaBilgi?.hastabilgi;
     }
 
-    kaydet(): void {
-      // Burada notunuzu bir veritabanına veya başka bir veri saklama yöntemine kaydedebilirsiniz.
-      alert("Not Kaydedildi")
-      // Örnek: Servis kullanarak notu kaydetmek için:
-      // this._hastaDataService.kaydetNot(this.not);
-    }
-  
+    kaydet() {
+      const notBilgi = this.not;
+      this._hastaBilgiService.putData({ HastaBilgi: notBilgi })
+        .subscribe({
+            next: (response: any) => {
+                console.log('sub başarili', response);         
+            },
+            error: (error: any) => {
+                console.error('Not hata.', error);
+            }
+        });
+        
+    };
 
     
 
