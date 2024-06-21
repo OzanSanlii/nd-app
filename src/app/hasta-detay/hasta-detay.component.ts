@@ -54,7 +54,8 @@ export class HastaDetayComponent {
 
     kaydet() {
       const notBilgi = this.not;
-      this._hastaBilgiService.putData({ HastaBilgi: notBilgi })
+      const dosyano = this.route.snapshot.params['dosyano']; 
+      this._hastaBilgiService.putData({ Dosyano: dosyano, HastaBilgi: notBilgi }) 
         .subscribe({
             next: (response: any) => {
                 console.log('sub başarili', response);         
@@ -62,9 +63,9 @@ export class HastaDetayComponent {
             error: (error: any) => {
                 console.error('Not hata.', error);
             }
-        });
-        
+        });    
     };
+    
 
     
 
