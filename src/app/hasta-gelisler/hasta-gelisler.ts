@@ -27,6 +27,9 @@ export class HastaGelis{
 @Injectable({ providedIn: 'root' })
 export class HastaGelisService{
 
+    private hastaGelisler= new BehaviorSubject<HastaGelis[]>([]);
+    hastaGelisler$ = this.hastaGelisler.asObservable();
+
     private hastaGelis = new BehaviorSubject<HastaGelis | null>(null);
     hastaGelis$ = this.hastaGelis.asObservable();
 

@@ -42,8 +42,10 @@ export class HastaDetayComponent {
     searchText : string = '';
     dosyano : string | null = ''; 
     hastaGelis : HastaGelis | null = null;
+    hastaGelisler : HastaGelis[]= [];
     hastaBilgiText: string | null = ''; 
     not: string | null = '';
+    selectedHastaBilgi: HastaBilgi | null = null;
 
     
 
@@ -65,8 +67,26 @@ export class HastaDetayComponent {
             }
         });    
     };
-    
 
+    gonder() {
+      const notBilgi = this.not;
+      const dosyano = this.route.snapshot.params['dosyano']; 
+      this._hastaBilgiService.putData({ Dosyano: dosyano, HastaBilgi: notBilgi }) 
+        .subscribe({
+            next: (response: any) => {
+                console.log('sub başarili', response);         
+            },
+            error: (error: any) => {
+                console.error('Not hata.', error);
+            }
+        });    
+    };
+    
+    selectNot(index: number): void {
+      if (this.hastasBilgi.length >= index) {
+        this.selectedHastaBilgi = this.hastasBilgi[index - 1];
+      }
+    }
     
 
     ngOnInit(): void {
@@ -80,15 +100,29 @@ export class HastaDetayComponent {
 
           this._hastaGelisService.fetchHastaGelis(dosyaNo);
           this._hastaGelisService.hastaGelis$.subscribe((data) => {
-            this.hastaGelis = data;
+            if (data === null) {
+              this.hastaGelisler = []; 
+            } else {
+              this.hastaGelisler = Array.isArray(data) ? data : [data]; 
+            }
+            this.cdr.detectChanges();
+            console.log('Hasta Gelis:', this.hastaGelisler);
           });
 
           this._hastaBilgiService.fetchBilgi(dosyaNo);
-          this._hastaBilgiService.hastaBilgi$.subscribe((data) =>{
-            this.hastaBilgi = data;
-            
-          })
+          this._hastaBilgiService.hastaBilgi$.subscribe((data) => {
+            if (data === null) {
+              this.hastasBilgi = []; 
+            } else {
+              this.hastasBilgi = Array.isArray(data) ? data : [data]; 
+            }
+            this.cdr.detectChanges();
+            console.log('Hasta Bilgileri:', this.hastasBilgi);
       });
+          
+      });
+
+      
     
       
   }

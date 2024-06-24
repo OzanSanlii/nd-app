@@ -24,26 +24,40 @@ export class HastaBilgi {
 @Injectable({ providedIn: 'root' })
 export class HastaBilgiService{
 
+    private hastasBilgi = new BehaviorSubject<HastaBilgi[]>([]);
+    hastasBilgi$ = this.hastasBilgi.asObservable();
+
     private hastaBilgi = new BehaviorSubject<HastaBilgi | null>(null);
     hastaBilgi$ = this.hastaBilgi.asObservable();
 
     constructor(private _dataService: DataService) {}
 
+    setHastasBilgi(value: HastaBilgi[]) {
+        this.hastasBilgi.next(value);
+    }
+
     setHastaBilgi(hData: HastaBilgi) {
         this.hastaBilgi.next(hData);
     }
 
+
+
     fetchBilgi(dosyano: string): void {
         this._dataService.getData(`Bilgi/${dosyano}`).pipe(
-            tap((res: any) => {
-                this.setHastaBilgi(res);
-            })
+          tap((res: any) => {
+            this.setHastaBilgi(res); // Aldığınız veriyi setHastaBilgi metoduna gönderin
+          })
         )
-            .subscribe({
-                next: data => console.log('Data geldi 3', data),
-                error: err => console.error('Error fetching data', err)
-            });
-    }
+        .subscribe({
+          next: data => {
+            console.log('Data geldi 3', data); // Veri başarılı bir şekilde alındığında konsola yazdırın
+          },
+          error: err => {
+            console.error('Error fetching data', err); // Hata durumunda konsola hata mesajını yazdırın
+          }
+        });
+      }
+      
 
     putData(data: any): Observable<any> {
         return this._dataService.putData('Bilgi', data).pipe(

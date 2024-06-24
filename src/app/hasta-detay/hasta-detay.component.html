@@ -100,78 +100,40 @@
                     </ul>
                 </mat-tab>
                 <mat-tab label="Gelişler"> 
-                    
-                    <h2 class="mb-2 text-lg font-semibold text-orange-600 dark:text-white pt-7">Geliş 1 : </h2>
-                    <ul class="max-w-md space-y-6 text-gray-500 list-none list-inside dark:text-gray-400 pt-3 pl-16">
+                    <ng-container *ngFor="let gelis of hastaGelisler; let i = index">
+                      <h2 class="mb-2 text-lg font-semibold text-orange-600 dark:text-white pt-7">Geliş {{ i + 1 }} : </h2>
+                      <ul class="max-w-md space-y-6 text-gray-500 list-none list-inside dark:text-gray-400 pt-3 pl-16">
                         <li>
-                            Giriş Tarihi : <b> {{hastaGelis?.giristarih}}</b>
+                          Giriş Tarihi : <b>{{ gelis.giristarih }}</b>
                         </li>
                         <li>
-                            Çıkış Tarihi : <b> {{hastaGelis?.cikistarih}}</b>
+                          Çıkış Tarihi : <b>{{ gelis.cikistarih }}</b>
                         </li>
                         <li>
-                            Referans :<b>  {{hastaGelis?.referans}}</b>
+                          Referans : <b>{{ gelis.referans }}</b>
                         </li>
                         <li>
-                            Poliklinik : <b> {{hastaGelis?.poliklinik}}</b>
+                          Poliklinik : <b>{{ gelis.poliklinik }}</b>
                         </li>
                         <li>
-                            Doktor :<b>  {{hastaGelis?.doktor}}</b>
+                          Doktor : <b>{{ gelis.doktor }}</b>
                         </li>
-                        
-                    </ul>
-
-                    <h2 class="mb-2 text-lg font-semibold text-orange-600 dark:text-white pt-7">Geliş 2 : </h2>
-                    <ul class="max-w-md space-y-6 text-gray-500 list-none list-inside dark:text-gray-400 pt-3 pl-16">
-                        <li>
-                            Geliş Tarihi : 
-                        </li>
-                        <li>
-                            Çıkış Tarihi : 
-                        </li>
-                        <li>
-                            Referans : 
-                        </li>
-                        <li>
-                            Poliklinik : 
-                        </li>
-                        <li>
-                            Doktor : 
-                        </li>
-                        
-                    </ul>
-                    <h2 class="mb-2 text-lg font-semibold text-orange-600 dark:text-white pt-7">Geliş 3 : </h2>
-                    <ul class="max-w-md space-y-6 text-gray-500 list-none list-inside dark:text-gray-400 pt-3 pl-16">
-                        <li>
-                            Geliş Tarihi : 
-                        </li>
-                        <li>
-                            Çıkış Tarihi : 
-                        </li>
-                        <li>
-                            Referans : 
-                        </li>
-                        <li>
-                            Poliklinik : 
-                        </li>
-                        <li>
-                            Doktor : 
-                        </li>
-                        
-                    </ul>
-
-                </mat-tab>
-                <mat-tab label="Detaylı Bilgi"> 
+                      </ul>
+                    </ng-container>
+                  </mat-tab>
+                  
+                  <mat-tab label="Detaylı Bilgi"> 
                     <h2 class="mb-2 text-lg font-semibold text-orange-600 dark:text-white pt-7 pb-4">Bilgi Ekranı</h2>
                     <div class="flex-row pt-4 pl-14">
-                        <button type="button" class="text-white bg-gradient-to-r from-cyan-500 via-cyan-500 to-cyan-400 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2" (click)="getHastaBilgi()">Not 1</button>
-                        <button type="button" class="text-white bg-gradient-to-r from-cyan-500 via-cyan-500 to-cyan-400 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2" (click)="getHastaBilgi()">Not 2</button>
-                        <button type="button" class="text-white bg-gradient-to-r from-cyan-500 via-cyan-500 to-cyan-400 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2" (click)="getHastaBilgi()">Not 3</button>
+                      <button type="button" (click)="selectNot(1)" id="not1" class="text-white bg-gradient-to-r from-cyan-500 via-cyan-500 to-cyan-400 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2" >Not 1</button>
+                      <button type="button" (click)="selectNot(2)" id="not2" class="text-white bg-gradient-to-r from-cyan-500 via-cyan-500 to-cyan-400 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2" >Not 2</button>
+                      <button type="button" (click)="selectNot(3)" id="not3" class="text-white bg-gradient-to-r from-cyan-500 via-cyan-500 to-cyan-400 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2" >Not 3</button>
                     </div>
-                    <div class="m-auto w-11/12 md:w-320 p-4 md:p-16 mt-22 border border-orange-600 bg-card print:w-auto print:rounded-none print:shadow-none print:bg-transparent bg-white ">
-                        {{ hastaBilgi?.hastabilgi }}
+                    <div class="m-auto w-11/12 md:w-320 p-4 md:p-16 mt-22 border border-orange-600 bg-card print:w-auto print:rounded-none print:shadow-none print:bg-transparent bg-white">
+                      {{ selectedHastaBilgi?.hastabilgi }}
                     </div>
-                </mat-tab>
+                  </mat-tab>
+                  
                 
                 <mat-tab label="Not Ekle">
                     <h2 class="mb-2 text-lg font-semibold text-orange-600 dark:text-white pt-7 pb-4">Not Ekleme Ekranı  </h2>
@@ -190,7 +152,7 @@
                             <button type="button" class="text-white bg-gradient-to-r from-cyan-500 via-cyan-500 to-cyan-400 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Resim Çek</button>
                             <button type="button" class="text-white bg-gradient-to-r from-cyan-500 via-cyan-500 to-cyan-400 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Resim Ekle</button>
                             <button type="button" (click)="kaydet()" class="text-white bg-gradient-to-r from-cyan-500 via-cyan-500 to-cyan-400 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Kaydet</button>
-                            <button type="button" class="text-white bg-gradient-to-r from-orange-600 via-orange-600 to-orange-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-orange-500 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Gönder</button>
+                            <button type="button" (click)="gonder()" class="text-white bg-gradient-to-r from-orange-600 via-orange-600 to-orange-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-orange-500 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Gönder</button>
                         </div>
                         
                     </div>
