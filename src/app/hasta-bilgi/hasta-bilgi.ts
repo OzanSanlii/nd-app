@@ -45,15 +45,15 @@ export class HastaBilgiService{
     fetchBilgi(dosyano: string): void {
         this._dataService.getData(`Bilgi/${dosyano}`).pipe(
           tap((res: any) => {
-            this.setHastaBilgi(res); // Aldığınız veriyi setHastaBilgi metoduna gönderin
+            this.setHastaBilgi(res); 
           })
         )
         .subscribe({
           next: data => {
-            console.log('Data geldi 3', data); // Veri başarılı bir şekilde alındığında konsola yazdırın
+            console.log('Data geldi 3', data); 
           },
           error: err => {
-            console.error('Error fetching data', err); // Hata durumunda konsola hata mesajını yazdırın
+            console.error('Error fetching data', err);
           }
         });
       }

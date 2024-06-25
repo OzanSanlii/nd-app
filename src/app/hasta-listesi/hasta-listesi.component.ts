@@ -1,9 +1,9 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule, NgFor } from '@angular/common';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { HastaData, HastaDataService } from '../hasta-data/hasta-data';
-import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 
 
 
@@ -16,6 +16,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 })
 
 export class HastaListesiComponent implements OnInit {
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   
   constructor(
@@ -30,8 +32,10 @@ export class HastaListesiComponent implements OnInit {
   filteredHastaBilgileri: any[] = []
   searchText : string = '';
   dosyano : string ='';
+  pageSizeOptions: number[] = [10, 25, 50, 100]; 
+  pageSize: number = 50; 
+  totalItems: number = 0; 
 
-  
 
   ngOnInit(): void {
     this._hastaDataService.fetchHastaDataByDosyano();
@@ -39,17 +43,15 @@ export class HastaListesiComponent implements OnInit {
       this.hastasData = data;
       this.initialHastasData = data;
       console.log("lalal", this.hastasData);
+      this.totalItems = this.hastasData.length; 
       this.cdr.detectChanges(); 
     });
   }
   
-
-
   goToHastaDetay(dosyano :string): void {
     console.log("url geldi", dosyano);
     this.router.navigate(['/hasta-detay/', dosyano]);
   }
-
 
   searchName($event:Event){
     const input = ($event.target as HTMLInputElement).value.toLowerCase();
@@ -74,12 +76,16 @@ export class HastaListesiComponent implements OnInit {
           hastalar.dosyano.includes(input)
         );
       });
-  
-      // Filtre sonucunu atama
+      this.totalItems = this.hastasData.length;
       this.hastasData = input ? filteredData : this.initialHastasData;
     }
   }
   
+  onPageChange(event: PageEvent): void {
+    const startIndex = event.pageIndex * event.pageSize;
+    const endIndex = startIndex + event.pageSize;
+    this.hastasData = this.initialHastasData.slice(startIndex, endIndex);
+  }
   
 
 };
