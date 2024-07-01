@@ -53,6 +53,10 @@ export class HastaListesiComponent implements OnInit {
     this.router.navigate(['/hasta-detay/', dosyano]);
   }
 
+  goToHomePage(){
+    this.router.navigate([''])
+  }
+
   searchName($event:Event){
     const input = ($event.target as HTMLInputElement).value.toLowerCase();
     if (this.hastasData !== null) {
@@ -70,14 +74,16 @@ export class HastaListesiComponent implements OnInit {
               mySurname = nameParts[nameParts.length - 1];
               return (hastalar.ad.toLowerCase().includes(myName) && (hastalar.soyad.toLowerCase().includes(mySurname) || hastalar.dosyano.includes(input)));
           }
-        return (
+          return (
           hastalar.ad.toLowerCase().includes(input) ||
           hastalar.soyad.toLowerCase().includes(input) ||
           hastalar.dosyano.includes(input)
+
         );
       });
       this.totalItems = this.hastasData.length;
       this.hastasData = input ? filteredData : this.initialHastasData;
+      
     }
   }
   

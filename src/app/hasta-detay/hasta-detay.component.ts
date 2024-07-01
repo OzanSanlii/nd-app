@@ -54,6 +54,14 @@ export class HastaDetayComponent {
       this.hastaBilgiText = this.hastaBilgi?.hastabilgi;
     }
 
+    goToHomePage(){
+      this.router.navigate([''])
+    }
+
+    goToHastaListe(){
+      this.router.navigate(['/hasta-listesi'])
+    }
+
     kaydet() {
       const notBilgi = this.not;
       const dosyano = this.route.snapshot.params['dosyano']; 
