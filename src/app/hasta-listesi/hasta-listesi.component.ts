@@ -4,6 +4,12 @@ import { Router, RouterLink, RouterLinkActive, RouterOutlet , RouterModule} from
 import { MatIconModule } from '@angular/material/icon';
 import { HastaData, HastaDataService } from '../hasta-data/hasta-data';
 import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import {JsonPipe} from '@angular/common';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {FormsModule} from '@angular/forms';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+
 
 @Component({
   selector: 'app-hasta-listesi',
@@ -26,6 +32,13 @@ export class HastaListesiComponent implements OnInit {
   totalItems: number = 0;
   pageSize: number = 100; 
   pageIndex: number = 0; 
+  pageSizeOptions = [25, 50, 100];
+  hidePageSize = false;
+  showPageSizeOptions = true;
+  showFirstLastButtons = true;
+  disabled = false;
+  
+ 
 
   ngOnInit(): void {
     this.fetchData();
@@ -36,31 +49,35 @@ export class HastaListesiComponent implements OnInit {
   }
 
   fetchData(): void {
-    this._hastaDataService.fetchHastaDataByDosyano();
+    this._hastaDataService.fetchHastaDataByDosyano(this.pageIndex, this.pageSize);
     this._hastaDataService.hastasData$.subscribe((data) => {
       this.hastasData = data;
       this.initialHastasData = data;
       this.totalItems = this.hastasData.length;
     });
+
+  }
+
+  handlePageEvent(event: PageEvent) {
+    this.totalItems = event.length;
+    this.pageSize = event.pageSize;
+    this.pageIndex = event.pageIndex;
+
+    const startIndex = this.pageIndex * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    this.hastasData = this.initialHastasData.slice(startIndex, endIndex);
     
+  }
+  
+
+  setPageSizeOptions(setPageSizeOptionsInput: string) {
+    if (setPageSizeOptionsInput) {
+      this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
+    }
   }
 
   goToHastaDetay(dosyano: string): void {
     this.router.navigate(['/hasta-detay/', dosyano]);
-  }
-
-  previousPage(): void {
-    if (this.pageIndex > 0) {
-      this.pageIndex--;
-      this.updatePageData();
-    }
-  }
-
-  nextPage(): void {
-    if ((this.pageIndex + 1) * this.pageSize < this.totalItems) {
-      this.pageIndex++;
-      this.updatePageData();
-    }
   }
 
   goToPage(page: number): void {
@@ -73,17 +90,6 @@ export class HastaListesiComponent implements OnInit {
     const endIndex = startIndex + this.pageSize;
     this.hastasData = this.initialHastasData.slice(startIndex, endIndex);
   }
-
-
-  getPaginatorRange(totalItems: number): number[] {
-    const pageRange: number[] = [];
-    const pageCount = Math.ceil(totalItems / this.pageSize);
-    for (let i = 0; i < pageCount; i++) {
-      pageRange.push(i);
-    }
-    return pageRange;
-  }
-
 
   searchName($event:Event){
     const input = ($event.target as HTMLInputElement).value.toLowerCase();

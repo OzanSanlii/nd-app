@@ -147,9 +147,9 @@ export class HastaDataService{
             });
     }
 
-    fetchHastaDataByDosyano(): void {
+    fetchHastaDataByDosyano(pageIndex : number, pageSize: number): void {
         console.log("HERE");
-        this._dataService.getData(`Kimlik/GetData`).pipe(
+        this._dataService.getData(`Kimlik/GetData?pageIndex=${pageIndex}&pageSize=${pageSize}`).pipe(
             tap((res: any) => {
                 this.setHastasData(res);
             })
