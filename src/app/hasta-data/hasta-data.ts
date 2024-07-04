@@ -1,6 +1,8 @@
 import { BehaviorSubject, Observable, firstValueFrom, map, tap } from 'rxjs';
 import { Injectable } from "@angular/core";
 import { DataService } from '../request-services/request-service';
+import { HttpClient } from '@angular/common/http';
+
 //import { ResponseClass } from '../response-class/response-class';
 
 export class HastaData {
@@ -102,6 +104,7 @@ export class HastaData {
 
 @Injectable({ providedIn: 'root' })
 export class HastaDataService{
+    
 
     private _hastasData = new BehaviorSubject<HastaData[]>([]);
     hastasData$ = this._hastasData.asObservable();
@@ -110,7 +113,7 @@ export class HastaDataService{
 
     hastaData$ = this.hastaData.asObservable();
 
-    constructor(private _dataService: DataService) {
+    constructor(private _dataService: DataService, private http: HttpClient) {
     }
 
     setHastasData(value: HastaData[]) {
@@ -134,6 +137,10 @@ export class HastaDataService{
     getHastasData(): HastaData | null {
         return this.hastaData.getValue();
     }
+
+    searchByName(searchValue: string): Observable<HastaData[]> {
+        return this.http.get<HastaData[]>(`http://localhost:5199/api/Kimlik/SearchByName/${searchValue}`);
+      }
 
     fetchFullDetail(dosyano: string): void {
         this._dataService.getData(`Kimlik/${dosyano}`).pipe(
