@@ -94,23 +94,21 @@ export class HastaListesiComponent implements OnInit {
   }
 
 
-  onInputChange(): void {
+  onSearchButtonClick(): void {
     const input = this.searchInput.trim().toLowerCase();
     if (input !== '') {
-      this._hastaDataService.searchByName(input).subscribe(
-        (data) => {
-          this.hastasData = data;
-          this.totalItems = this.hastasData.length;
-        },
-        (error) => {
-          console.error('Error fetching data', error);
-          
-        }
-      );
+        this._hastaDataService.searchByName(input).subscribe(
+            (data) => {
+                this.hastasData = data;
+                this.totalItems = this.hastasData.length;
+            },
+            (error) => {
+                console.error('Veri getirme hatası', error);
+            }
+        );
     } else {
-      this.hastasData = this.initialHastasData;
-      this.totalItems = this.hastasData.length;
-      
+        this.hastasData = this.initialHastasData;
+        this.totalItems = this.hastasData.length;
     }
-  }
+}
 }

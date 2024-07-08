@@ -67,12 +67,27 @@
                   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                 </svg>
               </div>
-              <input type="text"
-                  [(ngModel)]="searchInput"
-                  (input)="onInputChange()"
-                  id="table-search"
-                  class="block w-80 pt-2 pl-10 pr-3 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder="Arama">
+              <div class="relative">
+                <input type="text"
+                       [(ngModel)]="searchInput"
+                       id="table-search"
+                       class="block w-80 pt-2 pl-10 pr-3 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                       placeholder="Arama"
+                       (keyup.enter)="onSearchButtonClick()">
+                <button type="button"
+                        class="absolute inset-y-0 right-3 flex items-center px-3 text-gray-500 hover:text-gray-900 focus:outline-none"
+                        (click)="onSearchButtonClick()">
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4-4"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a7 7 0 00-7 7"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7"/>
+                    </svg>
+                </button>
+            </div>
+            
+            
+            
             </div>
           </div>
         </div>
