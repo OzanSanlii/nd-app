@@ -46,8 +46,15 @@ export class HastaDetayComponent {
     hastaBilgiText: string | null = ''; 
     not: string | null = '';
     selectedHastaBilgi: HastaBilgi | null = null;
+    notlar = [
+      { id: 1 },
+      { id: 2 },
+      { id: 3 },
+      { id: 4 },
+      { id: 5 } 
+    ];
 
-    
+  
 
     getHastaBilgi() {
       if (this.hastaBilgi?.hastabilgi != null)
@@ -89,13 +96,14 @@ export class HastaDetayComponent {
             }
         });    
     };
-    
+
     selectNot(index: number): void {
       if (this.hastasBilgi.length >= index) {
         this.selectedHastaBilgi = this.hastasBilgi[index - 1];
       }
     }
     
+   
 
     ngOnInit(): void {
       this.route.params.subscribe(params => {
