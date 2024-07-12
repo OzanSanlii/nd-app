@@ -127,43 +127,57 @@
                     <div class="flex-row pt-4 pl-14">
                       <button *ngFor="let not of notlar; let i = index"
                               type="button"
-                              (click)="selectNot(not.id)"
-                              [id]="'not' + not.id"
+                              (click)="selectNot(i + 1)"
+                              [id]="'not' + (i + 1)"
                               class="text-white bg-gradient-to-r from-cyan-500 via-cyan-500 to-cyan-400 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
-                        Not {{ not.id }}
+                        Not {{ i + 1 }}
                       </button>
                     </div>
                     <div class="m-auto w-11/12 md:w-320 p-4 md:p-16 mt-22 border border-orange-600 bg-card print:w-auto print:rounded-none print:shadow-none print:bg-transparent bg-white">
-                      {{ selectedHastaBilgi?.hastabilgi }}
+                      <textarea class="w-full h-32 border-gray-300 rounded-lg focus:ring-cyan-300 focus:border-cyan-300 dark:focus:ring-cyan-800 dark:focus:border-cyan-800 text-sm px-4 py-2 resize-none"
+                                [(ngModel)]="selectedHastaBilgi.hastabilgi"
+                                placeholder="Bilgiyi buraya girin"></textarea>
+                    </div>
+                    <div class="flex justify-center mt-4">
+                      <button type="button" (click)="notUpdate()"
+                              class="text-white bg-gradient-to-br from-green-500 to-green-400 hover:bg-gradient-to-tr focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center flex items-center">
+                        Güncelle <span class="ml-2">&#x231B;</span>
+                      </button>
                     </div>
                   </mat-tab>
                   
-                  
-                
-                <mat-tab label="Not Ekle">
-                    <h2 class="mb-2 text-lg font-semibold text-orange-600 dark:text-white pt-7 pb-4">Not Ekleme Ekranı  </h2>
-                        <mat-form-field class="w-11/12 md:w-320 p-4 md:p-16 mt-22 mb-4 border border-orange-600 bg-card print:w-auto print:rounded-none print:shadow-none print:bg-transparent bg-white " style="background-color: rgba(255, 255, 255, 0.9);">
-                            <mat-label>Not Giriniz</mat-label>
-                            <textarea [(ngModel)]="not" matInput placeholder=""></textarea>
-                            
-
-                        </mat-form-field>
-                    <br>
+                  <mat-tab label="Not Ekle">
+                    <h2 class="mb-2 text-lg font-semibold text-orange-600 dark:text-white pt-7 pb-4">Not Ekleme Ekranı</h2>
+                    <mat-form-field class="w-11/12 md:w-320 p-4 md:p-16 mt-22 mb-4 border border-orange-600 bg-card print:w-auto print:rounded-none print:shadow-none print:bg-transparent bg-white ">
+                      <mat-label>Not Giriniz</mat-label>
+                      <textarea [(ngModel)]="not" matInput placeholder="Notunuzu buraya girin"></textarea>
+                    </mat-form-field>
                     <div class="flex items-center flex-wrap">
-                        <div class="w-4/12 md:w-320 p-4 md:p-16 mt-22 border border-orange-600 bg-card print:w-auto print:rounded-none print:shadow-none print:bg-transparent bg-white ">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of clcClintock, a Latin professor at Hampden-Sydney College in Virginia, lookons 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
-
-                            The stand Rackham.</div>
-                        <br>
-                        <div class="flex-row pt-4 pl-12">
-                            <button type="button" class="text-white bg-gradient-to-r from-cyan-500 via-cyan-500 to-cyan-400 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Resim Çek</button>
-                            <button type="button" class="text-white bg-gradient-to-r from-cyan-500 via-cyan-500 to-cyan-400 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Resim Ekle</button>
-                            <button type="button" (click)="kaydet()" class="text-white bg-gradient-to-r from-cyan-500 via-cyan-500 to-cyan-400 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Kaydet</button>
-                            <button type="button" (click)="gonder()" class="text-white bg-gradient-to-r from-orange-600 via-orange-600 to-orange-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-orange-500 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Gönder</button>
-                        </div>
-                        
+                      <div class="w-4/12 md:w-320 p-4 md:p-16 mt-22 border border-orange-600 bg-card print:w-auto print:rounded-none print:shadow-none print:bg-transparent bg-white">
+                        Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of clcClintock, a Latin professor at Hampden-Sydney College in Virginia, lookons 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
+                        The stand Rackham.
+                      </div>
+                      <div class="flex-row pt-4 pl-12">
+                        <button type="button"
+                                class="text-white bg-gradient-to-r from-cyan-500 via-cyan-500 to-cyan-400 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
+                          Resim Çek
+                        </button>
+                        <button type="button"
+                                class="text-white bg-gradient-to-r from-cyan-500 via-cyan-500 to-cyan-400 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
+                          Resim Ekle
+                        </button>
+                        <button type="button" (click)="kaydet()"
+                                class="text-white bg-gradient-to-r from-cyan-500 via-cyan-500 to-cyan-400 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
+                          Kaydet
+                        </button>
+                        <button type="button" (click)="gonder()"
+                                class="text-white bg-gradient-to-r from-orange-600 via-orange-600 to-orange-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-orange-500 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
+                          Gönder
+                        </button>
+                      </div>
                     </div>
-                    
-                </mat-tab>
+                  </mat-tab>
+                  
               </mat-tab-group>
               
         </div>

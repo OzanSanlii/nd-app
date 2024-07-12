@@ -45,34 +45,48 @@ export class HastaDetayComponent {
     hastaGelisler : HastaGelis[]= [];
     hastaBilgiText: string | null = ''; 
     not: string | null = '';
-    selectedHastaBilgi: HastaBilgi | null = null;
-    notlar = [
-      { id: 1 },
-      { id: 2 },
-      { id: 3 },
-      { id: 4 },
-      { id: 5 } 
-    ];
+    selectedHastaBilgi: { hastabilgi: string } = { hastabilgi: 'Lütfen Bir Not Seçiniz' };
+    notlar: { id: number }[] = [];
 
   
 
-    getHastaBilgi() {
+    getHastaBilgi() 
+    {
       if (this.hastaBilgi?.hastabilgi != null)
       this.hastaBilgiText = this.hastaBilgi?.hastabilgi;
     }
 
-    goToHomePage(){
+    goToHomePage()
+    {
       this.router.navigate([''])
     }
 
-    goToHastaListe(){
+    goToHastaListe()
+    {
       this.router.navigate(['/hasta-listesi'])
     }
 
-    kaydet() {
+    notUpdate(): void {
+      const notBilgi = this.selectedHastaBilgi.hastabilgi;
+      const dosyaNo = this.route.snapshot.params['dosyano'];
+  
+      // API'ye not bilgisini gönder
+      this._hastaBilgiService.putData({ Dosyano: dosyaNo, HastaBilgi: notBilgi })
+        .subscribe({
+          next: (response: any) => {
+            console.log('Not güncelleme başarılı', response);         
+          },
+          error: (error: any) => {
+            console.error('Not güncelleme hatası', error);
+          }
+        });    
+    };
+
+    kaydet() 
+    {
       const notBilgi = this.not;
       const dosyano = this.route.snapshot.params['dosyano']; 
-      this._hastaBilgiService.putData({ Dosyano: dosyano, HastaBilgi: notBilgi }) 
+      this._hastaBilgiService.putData({ Dosyano: dosyano, Hastabilgi : notBilgi }) 
         .subscribe({
             next: (response: any) => {
                 console.log('sub başarili', response);         
@@ -83,7 +97,8 @@ export class HastaDetayComponent {
         });    
     };
 
-    gonder() {
+    gonder() 
+    {
       const notBilgi = this.not;
       const dosyano = this.route.snapshot.params['dosyano']; 
       this._hastaBilgiService.putData({ Dosyano: dosyano, HastaBilgi: notBilgi }) 
@@ -99,13 +114,12 @@ export class HastaDetayComponent {
 
     selectNot(index: number): void {
       if (this.hastasBilgi.length >= index) {
-        this.selectedHastaBilgi = this.hastasBilgi[index - 1];
+        this.selectedHastaBilgi = { hastabilgi: this.hastasBilgi[index - 1].hastabilgi };
       }
     }
-    
-   
-
-    ngOnInit(): void {
+  
+    ngOnInit(): void 
+    {
       this.route.params.subscribe(params => {
           const dosyaNo = params['dosyano'];
           console.log('Dosya Numarası:', dosyaNo);
@@ -121,7 +135,7 @@ export class HastaDetayComponent {
             } else {
               this.hastaGelisler = Array.isArray(data) ? data : [data]; 
             }
-            this.cdr.detectChanges();
+            this.cdr.detectChanges();                        
             console.log('Hasta Gelis:', this.hastaGelisler);
           });
 
@@ -131,16 +145,18 @@ export class HastaDetayComponent {
               this.hastasBilgi = []; 
             } else {
               this.hastasBilgi = Array.isArray(data) ? data : [data]; 
+              if (this.notlar != null)
+                for (var i = 0; i < this.hastasBilgi.length; i++) {
+                  this.notlar.push({ id: i + 1 }); 
+                  this.cdr.detectChanges();
+                }
             }
             this.cdr.detectChanges();
             console.log('Hasta Bilgileri:', this.hastasBilgi);
       });
           
       });
-
-      
-    
-      
+  
   }
   }
   

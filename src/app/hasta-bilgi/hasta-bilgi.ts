@@ -6,14 +6,14 @@ import { DataService } from '../request-services/request-service';
 export class HastaBilgi {
 
     dosyano : string;
-    kartno: number | null;
+    kartno: number;
     gelistarih : Date;
     hastabilgi : string;
     yeninot : string;
 
     constructor(data:any){
         this.dosyano = data.dosyano || "";
-        this.kartno = data.kartno || null;
+        this.kartno = data.kartno;
         this.gelistarih = new Date(data.gelistarih);
         this.hastabilgi = data.hastabilgi || "";
         this.yeninot = data.yeninot || "";
