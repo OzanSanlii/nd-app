@@ -70,7 +70,7 @@ export class HastaDetayComponent {
       const notBilgi = this.selectedHastaBilgi.hastabilgi;
       const dosyaNo = this.route.snapshot.params['dosyano'];
   
-      // API'ye not bilgisini gönder
+      
       this._hastaBilgiService.putData({ Dosyano: dosyaNo, HastaBilgi: notBilgi })
         .subscribe({
           next: (response: any) => {
@@ -84,9 +84,10 @@ export class HastaDetayComponent {
 
     kaydet() 
     {
+      var gelisTarih = Date.now()
       const notBilgi = this.not;
       const dosyano = this.route.snapshot.params['dosyano']; 
-      this._hastaBilgiService.putData({ Dosyano: dosyano, Hastabilgi : notBilgi }) 
+      this._hastaBilgiService.putData({ Dosyano: dosyano, Hastabilgi : notBilgi , DateTime : gelisTarih}) 
         .subscribe({
             next: (response: any) => {
                 console.log('sub başarili', response);         
