@@ -70,8 +70,7 @@ export class HastaDetayComponent {
       const notBilgi = this.selectedHastaBilgi.hastabilgi;
       const dosyaNo = this.route.snapshot.params['dosyano'];
   
-      
-      this._hastaBilgiService.putData({ Dosyano: dosyaNo, HastaBilgi: notBilgi })
+      this._hastaBilgiService.updateData({ yeniBilgi:{ Dosyano: dosyaNo, HastaBilgi: notBilgi }, eskiHastaBilgi: this.selectedHastaBilgi.hastabilgi})
         .subscribe({
           next: (response: any) => {
             console.log('Not güncelleme başarılı', response);         
@@ -88,6 +87,7 @@ export class HastaDetayComponent {
       const notBilgi = this.not;
       const dosyano = this.route.snapshot.params['dosyano']; 
       this._hastaBilgiService.putData({ Dosyano: dosyano, Hastabilgi : notBilgi , DateTime : gelisTarih}) 
+      
         .subscribe({
             next: (response: any) => {
                 console.log('sub başarili', response);         
@@ -100,9 +100,10 @@ export class HastaDetayComponent {
 
     gonder() 
     {
+      var gelisTarih = Date.now();
       const notBilgi = this.not;
       const dosyano = this.route.snapshot.params['dosyano']; 
-      this._hastaBilgiService.putData({ Dosyano: dosyano, HastaBilgi: notBilgi }) 
+      this._hastaBilgiService.putData({ Dosyano: dosyano, HastaBilgi: notBilgi, DateTime : gelisTarih }) 
         .subscribe({
             next: (response: any) => {
                 console.log('sub başarili', response);         

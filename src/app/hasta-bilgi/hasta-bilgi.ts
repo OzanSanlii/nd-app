@@ -40,8 +40,6 @@ export class HastaBilgiService{
         this.hastaBilgi.next(hData);
     }
 
-
-
     fetchBilgi(dosyano: string): void {
         this._dataService.getData(`Bilgi/${dosyano}`).pipe(
           tap((res: any) => {
@@ -71,6 +69,19 @@ export class HastaBilgiService{
             })
         );
     }
+
+    updateData(data: any): Observable<any> {
+      return this._dataService.putData('Bilgi/Update', data).pipe(
+          tap((response: any) => {
+              console.log('Put başarili', response);
+              
+          }),
+          catchError(error => {
+              console.error('Put hatasi', error);
+              throw error; 
+          })
+      );
+  }
 
 
 }
