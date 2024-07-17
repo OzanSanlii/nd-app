@@ -110,15 +110,17 @@ export class HastaDetayComponent {
             },
             error: (error: any) => {
                 console.error('Not hata.', error);
-            }
+            }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
         });    
     };
 
     selectNot(index: number): void {
-      if (this.hastasBilgi.length >= index) {
+      if (this.hastasBilgi.length > index - 1) {
         this.selectedHastaBilgi = { hastabilgi: this.hastasBilgi[index - 1].hastabilgi };
       }
     }
+    
+
   
     ngOnInit(): void 
     {
