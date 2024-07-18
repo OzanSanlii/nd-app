@@ -47,6 +47,7 @@ export class HastaDetayComponent {
     not: string | null = '';
     selectedHastaBilgi: { hastabilgi: string } = { hastabilgi: 'Lütfen Bir Not Seçiniz' };
     notlar: { id: number }[] = [];
+    selectedHastaBilgiPrevious: { hastabilgi: string } | null = null;
 
   
 
@@ -58,19 +59,19 @@ export class HastaDetayComponent {
 
     goToHomePage()
     {
-      this.router.navigate([''])
+      this.router.navigate(['']);
     }
 
     goToHastaListe()
     {
-      this.router.navigate(['/hasta-listesi'])
+      this.router.navigate(['/hasta-listesi']);
     }
 
     notUpdate(): void {
       const notBilgi = this.selectedHastaBilgi.hastabilgi;
       const dosyaNo = this.route.snapshot.params['dosyano'];
   
-      this._hastaBilgiService.updateData({ yeniBilgi:{ Dosyano: dosyaNo, HastaBilgi: notBilgi }, eskiHastaBilgi: this.selectedHastaBilgi.hastabilgi})
+      this._hastaBilgiService.updateData({ yeniBilgi:{ Dosyano: dosyaNo, HastaBilgi: notBilgi }, eskiHastaBilgi: this.selectedHastaBilgiPrevious?.hastabilgi})
         .subscribe({
           next: (response: any) => {
             console.log('Not güncelleme başarılı', response);         
@@ -103,25 +104,24 @@ export class HastaDetayComponent {
       var gelisTarih = Date.now();
       const notBilgi = this.not;
       const dosyano = this.route.snapshot.params['dosyano']; 
-      this._hastaBilgiService.putData({ Dosyano: dosyano, HastaBilgi: notBilgi, DateTime : gelisTarih }) 
+      this._hastaBilgiService.putData({ Dosyano: dosyano, HastaBilgi: notBilgi, DateTime : gelisTarih}) 
         .subscribe({
             next: (response: any) => {
                 console.log('sub başarili', response);         
             },
             error: (error: any) => {
                 console.error('Not hata.', error);
-            }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+            }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
         });    
     };
 
     selectNot(index: number): void {
       if (this.hastasBilgi.length > index - 1) {
         this.selectedHastaBilgi = { hastabilgi: this.hastasBilgi[index - 1].hastabilgi };
+        this.selectedHastaBilgiPrevious = { hastabilgi: this.selectedHastaBilgi.hastabilgi }; 
       }
-    }
+    };
     
-
-  
     ngOnInit(): void 
     {
       this.route.params.subscribe(params => {
