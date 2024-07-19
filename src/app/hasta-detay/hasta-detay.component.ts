@@ -48,6 +48,8 @@ export class HastaDetayComponent {
     selectedHastaBilgi: { hastabilgi: string } = { hastabilgi: 'Lütfen Bir Not Seçiniz' };
     notlar: { id: number }[] = [];
     selectedHastaBilgiPrevious: { hastabilgi: string } | null = null;
+    temporaryChanges = new Map<number, string>();
+    
 
   
 
