@@ -50,9 +50,6 @@ export class HastaDetayComponent {
     selectedHastaBilgiPrevious: { hastabilgi: string } | null = null;
     temporaryChanges = new Map<number, string>();
     
-
-  
-
     getHastaBilgi() 
     {
       if (this.hastaBilgi?.hastabilgi != null)
@@ -82,6 +79,7 @@ export class HastaDetayComponent {
             console.error('Not güncelleme hatası', error);
           }
         });    
+        
     };
 
     kaydet() 

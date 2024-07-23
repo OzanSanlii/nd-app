@@ -56,7 +56,6 @@ export class HastaBilgiService{
         });
       }
       
-
     putData(data: any): Observable<any> {
         return this._dataService.putData('Bilgi', data).pipe(
             tap((response: any) => {
