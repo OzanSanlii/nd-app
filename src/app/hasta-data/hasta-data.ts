@@ -162,7 +162,6 @@ export class HastaDataService{
             })
         )
             .subscribe({
-                // next: data => console.log('Data fetched successfully', data),
                 error: err => console.error('Error fetching data', err)
             });
     }

@@ -71,9 +71,7 @@ export class HastaBilgiService{
 
     updateData(data: any): Observable<any> {
       return this._dataService.putData('Bilgi/Update', data).pipe(
-          tap((response: any) => {
-              console.log('Put başarili', response);
-              
+          tap((response: any) => {              
           }),
           catchError(error => {
               console.error('Put hatasi', error);

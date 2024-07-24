@@ -66,29 +66,34 @@ export class HastaDetayComponent {
       this.router.navigate(['/hasta-listesi']);
     }
 
+    refreshPage(dosyano: string): void {
+      this.router.navigate(['/hasta-detay/', dosyano]);
+    }
+
     notUpdate(): void {
       const notBilgi = this.selectedHastaBilgi.hastabilgi;
       const dosyaNo = this.route.snapshot.params['dosyano'];
-  
-      this._hastaBilgiService.updateData({ yeniBilgi:{ Dosyano: dosyaNo, HastaBilgi: notBilgi }, eskiHastaBilgi: this.selectedHastaBilgiPrevious?.hastabilgi})
-        .subscribe({
-          next: (response: any) => {
-            console.log('Not güncelleme başarılı', response);         
-          },
-          error: (error: any) => {
-            console.error('Not güncelleme hatası', error);
-          }
-        });    
-        
+    
+      const eskiHastaBilgi = this.selectedHastaBilgiPrevious?.hastabilgi;
+    
+      this._hastaBilgiService.updateData({yeniBilgi: { Dosyano: dosyaNo, HastaBilgi: notBilgi },eskiHastaBilgi: eskiHastaBilgi})
+      .subscribe({
+        next: (response: any) => {
+          this.selectedHastaBilgiPrevious = { ...this.selectedHastaBilgi };
+          this.refreshPage(dosyaNo);
+        },
+        error: (error: any) => {
+          console.error('Not güncelleme hatası', error);
+        }
+      });
     };
 
     kaydet() 
     {
-      var gelisTarih = Date.now()
+      var gelisTarih = Date.now();
       const notBilgi = this.not;
       const dosyano = this.route.snapshot.params['dosyano']; 
       this._hastaBilgiService.putData({ Dosyano: dosyano, Hastabilgi : notBilgi , DateTime : gelisTarih}) 
-      
         .subscribe({
             next: (response: any) => {
                 console.log('sub başarili', response);         
@@ -111,7 +116,7 @@ export class HastaDetayComponent {
             },
             error: (error: any) => {
                 console.error('Not hata.', error);
-            }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+            }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
         });    
     };
 
