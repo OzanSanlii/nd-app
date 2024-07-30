@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { AppCalendar, HastaCalendarService } from '../randevu-takvim/app-calendar';
 
 @Component({
   selector: 'app-ana-sayfa',
@@ -10,7 +11,19 @@ import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/rou
   styleUrl: './ana-sayfa.component.scss'
 })
 export class AnaSayfaComponent {
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private _hastaCalendarService : HastaCalendarService) {}
+
+    hastaCalendars: AppCalendar[] = [];
+
+  ngOnInit(): void {
+    this._hastaCalendarService.fetchHastaGelis();
+    this._hastaCalendarService.hastaCalendars$.subscribe((data) => {
+      this.hastaCalendars = data;
+    });
+
+  }
 
   goToHastaListesi(): void {
     this.router.navigate(['/hasta-listesi']);
