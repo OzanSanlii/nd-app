@@ -2,26 +2,50 @@ import { BehaviorSubject, Observable, firstValueFrom, map, tap } from 'rxjs';
 import { Injectable } from "@angular/core";
 import { DataService } from '../request-services/request-service';
 
-export class AppCalendar{
+export class AppCalendar {
+    subject: string;
+    startDate: Date;
+    appointmentDate: Date;
 
-    subject : string;
-    startDate : Date;
-    appointmentDate : Date;
-    
-    constructor(data: any){
+    constructor(data: any) {
+        console.log('Constructing with data:', data); 
 
-        this.subject = data.dosyano || "";
-        this.startDate = new Date(data.startDate);
-        this.appointmentDate = new Date(data.appointmentDate);
-        
+        this.subject = data.subject || ""; 
+        this.startDate = new Date(data.start); 
+        this.appointmentDate = new Date(data.end); 
+
+        if (isNaN(this.startDate.getTime())) {
+            console.error('Invalid startDate:', data.start);
+        }
+        if (isNaN(this.appointmentDate.getTime())) {
+            console.error('Invalid appointmentDate:', data.end);
+        }
     }
 
+    formatDate(date: Date): string {
+        return date.toLocaleString('tr-TR', {
+            year: 'numeric',
+            month: 'numeric',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: false
+        });
+    }
+
+    getFormattedStartDate(): string {
+        return this.formatDate(this.startDate);
+    }
+
+    getFormattedAppointmentDate(): string {
+        return this.formatDate(this.appointmentDate);
+    }
 }
 
-@Injectable({ providedIn: 'root' })
-export class HastaCalendarService{
 
-    private hastaCalendars= new BehaviorSubject<AppCalendar[]>([]);
+@Injectable({ providedIn: 'root' })
+export class HastaCalendarService {
+    private hastaCalendars = new BehaviorSubject<AppCalendar[]>([]);
     hastaCalendars$ = this.hastaCalendars.asObservable();
 
     private hastaCalendar = new BehaviorSubject<AppCalendar | null>(null);
@@ -29,20 +53,20 @@ export class HastaCalendarService{
 
     constructor(private _dataService: DataService) {}
 
-    setCalendarData(gData: AppCalendar) {
-        this.hastaCalendar.next(gData);
+    setCalendarData(gData: AppCalendar[]) {
+        this.hastaCalendars.next(gData);
     }
 
-    fetchHastaGelis(): void{
-        this._dataService.getData(`Gelisler/events`,).pipe(
+    fetchHastaCalendar(): void {
+        this._dataService.getData('calendar/events').pipe(
             tap((res: any) => {
-                this.setCalendarData(res);
+                console.log('Raw data:', res); 
+                const calendars = Array.isArray(res) ? res.map(item => new AppCalendar(item)) : [];
+                this.setCalendarData(calendars);
             })
-        )
-            .subscribe({
-                next: data => console.log('Data Calendar geldi 2', data),
-                error: err => console.error('Error fetching data Calendar', err)
-            });
+        ).subscribe({
+            next: data => console.log('Data Calendar geldi', data),
+            error: err => console.error('Error fetching data Calendar', err)
+        });
     }
-
 }

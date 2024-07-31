@@ -80,7 +80,26 @@ export class HastaDetayComponent {
       .subscribe({
         next: (response: any) => {
           this.selectedHastaBilgiPrevious = { ...this.selectedHastaBilgi };
-          this.refreshPage(dosyaNo);
+          
+        },
+        error: (error: any) => {
+          console.error('Not güncelleme hatası', error);
+        }
+      });
+    };
+
+
+    notUpdateClick(): void {
+      const notBilgi = this.selectedHastaBilgi.hastabilgi;
+      const dosyaNo = this.route.snapshot.params['dosyano'];
+    
+      const eskiHastaBilgi = this.selectedHastaBilgiPrevious?.hastabilgi;
+    
+      this._hastaBilgiService.updateData({yeniBilgi: { Dosyano: dosyaNo, HastaBilgi: notBilgi },eskiHastaBilgi: eskiHastaBilgi})
+      .subscribe({
+        next: (response: any) => {
+          this.selectedHastaBilgiPrevious = { ...this.selectedHastaBilgi };
+          window.location.reload();
         },
         error: (error: any) => {
           console.error('Not güncelleme hatası', error);
