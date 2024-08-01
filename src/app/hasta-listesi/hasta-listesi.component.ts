@@ -33,7 +33,7 @@ export class HastaListesiComponent implements OnInit {
   totalItems: number = 0;
   pageSize: number = 200; 
   pageIndex: number = 0; 
-  pageSizeOptions = [25, 50, 100];
+  pageSizeOptions = [25, 50, 100,200];
   hidePageSize = false;
   showPageSizeOptions = true;
   showFirstLastButtons = true;
