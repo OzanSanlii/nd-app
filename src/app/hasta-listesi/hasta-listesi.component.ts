@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule, NgFor } from '@angular/common';
-import { Router, RouterLink, RouterLinkActive, RouterOutlet , RouterModule} from '@angular/router';
+import { Router, RouterLink, RouterLinkActive, RouterOutlet , RouterModule, ActivatedRoute} from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { HastaData, HastaDataService } from '../hasta-data/hasta-data';
 import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
@@ -10,6 +10,7 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {FormsModule, NgModel} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -20,10 +21,12 @@ import {MatFormFieldModule} from '@angular/material/form-field';
   styleUrls: ['./hasta-listesi.component.scss']
 })
 export class HastaListesiComponent implements OnInit {
+  routeSub: Subscription = new Subscription();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(
+    private route: ActivatedRoute,
     private router: Router,
     private _hastaDataService: HastaDataService
   ) {}
@@ -43,7 +46,18 @@ export class HastaListesiComponent implements OnInit {
  
 
   ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      const dosyaNo = params['dosyano'];
+      // Diğer kodlar
+
+      window.addEventListener('popstate', () => {
+        location.reload();
+      });
+    });
+
     this.fetchData();
+
+    // Diğer ngOnInit kodları
   }
 
   goToHomePage(){

@@ -7,6 +7,7 @@ export class HastaBilgi {
 
     dosyano : string;
     kartno: number;
+    gelisno : number;
     gelistarih : Date;
     hastabilgi : string;
     yeninot : string;
@@ -14,6 +15,7 @@ export class HastaBilgi {
     constructor(data:any){
         this.dosyano = data.dosyano || "";
         this.kartno = data.kartno;
+        this.gelisno = data.gelisno;
         this.gelistarih = new Date(data.gelistarih);
         this.hastabilgi = data.hastabilgi || "";
         this.yeninot = data.yeninot || "";

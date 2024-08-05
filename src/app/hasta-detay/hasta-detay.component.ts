@@ -50,6 +50,7 @@ export class HastaDetayComponent {
   notlar: { id: number }[] = [];
   selectedHastaBilgiPrevious: { hastabilgi: string } | null = null;
   temporaryChanges = new Map<number, string>();
+  selectedKartNo: number = 1;
 
   getHastaBilgi() {
     if (this.hastaBilgi?.hastabilgi != null)
@@ -61,7 +62,9 @@ export class HastaDetayComponent {
   }
 
   goToHastaListe() {
-    this.router.navigate(['/hasta-listesi']);
+    this.router.navigate(['/hasta-listesi']).then(() => {
+      window.location.reload();
+    });
   }
 
   refreshPage(dosyano: string): void {
@@ -119,33 +122,24 @@ export class HastaDetayComponent {
   kaydet() {
     var gelisTarih = Date.now();
     const notBilgi = this.not;
-    const dosyano = this.route.snapshot.params['dosyano']; 
-    this._hastaBilgiService.putData({ Dosyano: dosyano, Hastabilgi: notBilgi, DateTime: gelisTarih }) 
+    const dosyano = this.route.snapshot.params['dosyano'];
+    const gelisno = 1;
+    const kartno = this.hastasBilgi.length + 1; 
+     
+  
+    console.log("Saving data with Kartno: ", kartno);  
+  
+    this._hastaBilgiService.putData({ Dosyano: dosyano, Hastabilgi: notBilgi, DateTime: gelisTarih, Gelisno: gelisno, Kartno: kartno }) 
       .subscribe({
         next: (response: any) => {
-          console.log('sub başarili', response); 
-          window.location.reload();        
+          console.log('sub başarılı', response);
+          window.location.reload();
         },
         error: (error: any) => {
           console.error('Not hata.', error);
         }
-      });    
-  };
-
-  gonder() {
-    var gelisTarih = Date.now();
-    const notBilgi = this.not;
-    const dosyano = this.route.snapshot.params['dosyano']; 
-    this._hastaBilgiService.putData({ Dosyano: dosyano, HastaBilgi: notBilgi, DateTime: gelisTarih }) 
-      .subscribe({
-        next: (response: any) => {
-          console.log('sub başarili', response);         
-        },
-        error: (error: any) => {
-          console.error('Not hata.', error);
-        }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
-      });    
-  };
+      });
+  }
 
   selectNot(index: number): void {
     if (this.hastasBilgi.length > index - 1) {
@@ -155,7 +149,8 @@ export class HastaDetayComponent {
         const htmlContent = RTF2HTML(content);
         const textContent = convert(htmlContent, { wordwrap: false });
         this.selectedHastaBilgi = { hastabilgi: textContent };
-        this.selectedHastaBilgiPrevious = { hastabilgi: content }; 
+        this.selectedHastaBilgiPrevious = { hastabilgi: content };
+        console.log(this.selectedHastaBilgi, this.selectedHastaBilgiPrevious);
       } else {
         this.selectedHastaBilgi = { hastabilgi: content };
         this.selectedHastaBilgiPrevious = { hastabilgi: content };
@@ -199,5 +194,6 @@ export class HastaDetayComponent {
         console.log('Hasta Bilgileri:', this.hastasBilgi);
       });
     });
+    
   }
 }
