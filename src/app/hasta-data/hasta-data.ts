@@ -1,10 +1,9 @@
-import { BehaviorSubject, Observable, firstValueFrom, map, tap } from 'rxjs';
-import { Injectable } from "@angular/core";
-import { DataService } from '../request-services/request-service';
+import { BehaviorSubject, Observable, firstValueFrom, tap } from 'rxjs';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { DataService } from '../request-services/request-service';
 
-//import { ResponseClass } from '../response-class/response-class';
-
+// HastaData modelinizi buraya ekleyin
 export class HastaData {
     ad: string;
     adres: string;
@@ -18,6 +17,7 @@ export class HastaData {
     cocukSirano: number | null;
     dogumsirasi: number | null;
     dogumtarih: Date;
+    formattedDogumtarih: string;  
     dogumyer: string;
     dosyano: string;
     eklemeTarihi: Date | null;
@@ -65,6 +65,7 @@ export class HastaData {
         this.cocukSirano = data.cocukSirano || null;
         this.dogumsirasi = data.dogumsirasi || null;
         this.dogumtarih = new Date(data.dogumtarih);
+        this.formattedDogumtarih = "";
         this.dogumyer = data.dogumyer || "";
         this.dosyano = data.dosyano || "";
         this.eklemeTarihi = data.eklemeTarihi ? new Date(data.eklemeTarihi) : null;
@@ -102,72 +103,85 @@ export class HastaData {
 }
 
 
-@Injectable({ providedIn: 'root' })
-export class HastaDataService{
-    
-
-    private _hastasData = new BehaviorSubject<HastaData[]>([]);
-    hastasData$ = this._hastasData.asObservable();
-
-    private hastaData = new BehaviorSubject<HastaData | null>(null);
-
-    hastaData$ = this.hastaData.asObservable();
-
-    constructor(private _dataService: DataService, private http: HttpClient) {
-    }
-
-    setHastasData(value: HastaData[]) {
-        this._hastasData.next(value);
-    }
-
-    setHastaData(hData: HastaData) {
-        this.hastaData.next(hData);
-    }
-
-
-    async getHastaData(_dosyaNo: string): Promise<HastaData> {
-        const result$ = this._dataService.getData(`Kimlik/${_dosyaNo}`).pipe(
-            map((response: any) => {
-                return response.data; 
-            }));
-        
-        return firstValueFrom(result$);
-    }
-
-    getHastasData(): HastaData | null {
-        return this.hastaData.getValue();
-    }
-
-    searchByName(searchValue: string): Observable<HastaData[]> {
-        return this.http.get<HastaData[]>(`http://localhost:5199/api/Kimlik/SearchByName/${searchValue}`);
-      }
-
-    fetchFullDetail(dosyano: string): void {
-        this._dataService.getData(`Kimlik/${dosyano}`).pipe(
-            tap((res: any) => {
-                this.setHastaData(res);
-            })
-        )
-            .subscribe({
-                next: data => console.log('Data geldi 2', data),
-                error: err => console.error('Error fetching data', err)
-            });
-    }
-
-    fetchHastaDataByDosyano(pageIndex : number, pageSize: number): void {
-        console.log("HERE");
-        this._dataService.getData(`Kimlik/GetData?pageIndex=${pageIndex}&pageSize=${pageSize}`).pipe(
-            tap((res: any) => {
-                this.setHastasData(res);
-            })
-        )
-            .subscribe({
-                error: err => console.error('Error fetching data', err)
-            });
-    }
-    
-    
-    
-    
-
+export interface PaginatedResult<T> {
+    data: T[];
+    totalCount: number;
 }
+
+@Injectable({ providedIn: 'root' })
+export class HastaDataService {
+  private _hastasData = new BehaviorSubject<HastaData[]>([]);
+  hastasData$ = this._hastasData.asObservable();
+
+  private hastaData = new BehaviorSubject<HastaData | null>(null);
+  hastaData$ = this.hastaData.asObservable();
+
+  constructor(private _dataService: DataService, private http: HttpClient) { }
+
+  setHastasData(value: HastaData[]) {
+    this._hastasData.next(value);
+  }
+
+  formatDate(date: Date): string {
+    return date.toLocaleString('tr-TR', {
+        year: 'numeric',
+        month: 'numeric',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false
+    });
+  }
+
+  getFormattedStartDate(date: Date): string {
+    return this.formatDate(date);
+  }
+
+  setHastaData(hData: HastaData) {
+    this.hastaData.next(hData);
+  }
+
+  getHastasData(): HastaData | null {
+    return this.hastaData.getValue();
+  }
+
+  searchByName(searchValue: string): Observable<HastaData[]> {
+    return this.http.get<HastaData[]>(`http://localhost:5199/api/Kimlik/SearchByName/${searchValue}`);
+  }
+
+  fetchFullDetail(dosyano: string): void {
+    this._dataService.getData(`Kimlik/${dosyano}`).pipe(
+        tap((res: any) => {
+            // Ensure dogumtarih is a Date object and format it
+            if (res.dogumtarih) {
+                res.dogumtarih = new Date(res.dogumtarih);
+                res.formattedDogumtarih = this.getFormattedStartDate(res.dogumtarih);
+            }
+            this.setHastaData(res);
+        })
+    )
+    .subscribe({
+        next: data => console.log('Data geldi 2', data),
+        error: err => console.error('Error fetching data', err)
+    });
+}
+
+fetchHastaDataByDosyano(pageIndex: number, pageSize: number): void {
+    this._dataService.getDatas(`Kimlik/GetData?pageIndex=${pageIndex}&pageSize=${pageSize}`).pipe(
+      tap((res: PaginatedResult<HastaData>) => {
+        res.data.forEach(hasta => {
+          hasta.dogumtarih = new Date(hasta.dogumtarih);  // Ensure dogumtarih is a Date object
+          hasta.formattedDogumtarih = this.getFormattedStartDate(hasta.dogumtarih);  // Add formatted date
+        });
+        this.setHastasData(res.data);  
+        this._hastasData.next(res.data);
+      })
+    ).subscribe({
+      error: err => console.error('Error fetching data', err)
+    });
+  }
+}
+
+
+
+

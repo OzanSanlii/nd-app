@@ -189,11 +189,16 @@ export class HastaDetayComponent {
               this.notlar.push({ id: i + 1 }); 
               this.cdr.detectChanges();
             }
+          if (this.hastasBilgi.length > 0) {
+            this.selectNot(1);
+          }
         }
         this.cdr.detectChanges();
         console.log('Hasta Bilgileri:', this.hastasBilgi);
       });
     });
+  }
+    
     
   }
-}
+

@@ -48,16 +48,11 @@ export class HastaListesiComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       const dosyaNo = params['dosyano'];
-      // Diğer kodlar
-
       window.addEventListener('popstate', () => {
         location.reload();
       });
     });
-
     this.fetchData();
-
-    // Diğer ngOnInit kodları
   }
 
   goToHomePage(){
@@ -69,20 +64,15 @@ export class HastaListesiComponent implements OnInit {
     this._hastaDataService.hastasData$.subscribe((data) => {
       this.hastasData = data;
       this.initialHastasData = data;
-      this.totalItems = this.hastasData.length;
+      this.totalItems = data.length;
     });
 
   }
 
   handlePageEvent(event: PageEvent) {
-    this.totalItems = event.length;
-    this.pageSize = event.pageSize;
     this.pageIndex = event.pageIndex;
-
-    const startIndex = this.pageIndex * this.pageSize;
-    const endIndex = startIndex + this.pageSize;
-    this.hastasData = this.initialHastasData.slice(startIndex, endIndex);
-    
+    this.pageSize = event.pageSize;
+    this.fetchData(); // Sayfa değiştiğinde yeni verileri al
   }
   
 
@@ -114,15 +104,14 @@ export class HastaListesiComponent implements OnInit {
         this._hastaDataService.searchByName(input).subscribe(
             (data) => {
                 this.hastasData = data;
-                this.totalItems = this.hastasData.length;
+                this.totalItems = data.length;
             },
             (error) => {
                 console.error('Veri getirme hatası', error);
             }
         );
     } else {
-        this.hastasData = this.initialHastasData;
-        this.totalItems = this.hastasData.length;
+      this.fetchData();
     }
 }
 }

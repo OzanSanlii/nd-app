@@ -23,7 +23,7 @@
                         <a class="inline-flex items-center -ml-1.5 text-secondary font-medium">
                             <mat-icon class="icon-size-5 text-secondary"
                                 [svgIcon]="'heroicons_solid:chevron-left'"></mat-icon>
-                            <span class="ml-1">Back</span>
+                                <button routerLink="/hasta-listesi" routerLinkActive="active" ariaCurrentWhenActive="page" class="font-medium text-white dark:text-blue-500 hover:underline" type="button" (click)="goToHastaListe()"> Back </button>
                         </a>
                     </div>
                 </div>
@@ -56,7 +56,7 @@
                             Doğum Yeri : <b> {{hastaData?.dogumyer}}</b> 
                         </li>
                         <li>
-                            Doğum Tarihi : <b>{{hastaData?.dogumtarih}}</b> 
+                            Doğum Tarihi : <b>{{hastaData?.formattedDogumtarih}}</b> 
                         </li>
                         <li>
                             Meslek :<b> {{hastaData?.meslek}}</b> 
@@ -104,7 +104,7 @@
                       <h2 class="mb-2 text-lg font-semibold text-orange-600 dark:text-white pt-7">Geliş {{ i + 1 }} : </h2>
                       <ul class="max-w-md space-y-6 text-gray-500 list-none list-inside dark:text-gray-400 pt-3 pl-16">
                         <li>
-                          Giriş Tarihi : <b>{{ gelis.giristarih }}</b>
+                          Giriş Tarihi : <b>{{ gelis.giristarih}}</b>
                         </li>
                         <li>
                           Çıkış Tarihi : <b>{{ gelis.cikistarih }}</b>

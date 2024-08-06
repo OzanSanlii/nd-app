@@ -1,5 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import { HastaData, PaginatedResult } from '../hasta-data/hasta-data';
+import { Observable } from 'rxjs';
 
 const baseUrl = "http://localhost:5199/api/";
 
@@ -21,6 +23,18 @@ export class DataService {
             }
         });
     }
+
+    getDatas(url: string): Observable<PaginatedResult<HastaData>> {
+        const baseUrl = 'http://localhost:5199/api/';  // API base URL'nizi buraya ekleyin
+        url = baseUrl + url;
+        return this._httpClient.get<PaginatedResult<HastaData>>(url, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        });
+    }
+    
 
     putData(url: string, data: any) {
         url = baseUrl + url;
