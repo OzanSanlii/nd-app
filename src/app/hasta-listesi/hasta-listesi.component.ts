@@ -43,7 +43,7 @@ export class HastaListesiComponent implements OnInit {
   disabled = false;
   searchInput: string = '';
   
- 
+  private searchTimeout: any;
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -72,7 +72,7 @@ export class HastaListesiComponent implements OnInit {
   handlePageEvent(event: PageEvent) {
     this.pageIndex = event.pageIndex;
     this.pageSize = event.pageSize;
-    this.fetchData(); // Sayfa değiştiğinde yeni verileri al
+    this.fetchData(); 
   }
   
 
@@ -99,19 +99,27 @@ export class HastaListesiComponent implements OnInit {
 
 
   onSearchButtonClick(): void {
-    const input = this.searchInput.trim().toLowerCase();
-    if (input !== '') {
-        this._hastaDataService.searchByName(input).subscribe(
-            (data) => {
-                this.hastasData = data;
-                this.totalItems = data.length;
-            },
-            (error) => {
-                console.error('Veri getirme hatası', error);
-            }
-        );
-    } else {
-      this.fetchData();
+   
+    if (this.searchTimeout) {
+      clearTimeout(this.searchTimeout);
     }
-}
+    
+   
+    this.searchTimeout = setTimeout(() => {
+      const input = this.searchInput.trim().toLowerCase();
+      if (input !== '') {
+        this._hastaDataService.searchByName(input).subscribe(
+          (data) => {
+            this.hastasData = data;
+            this.totalItems = data.length;
+          },
+          (error) => {
+            console.error('Veri getirme hatası', error);
+          }
+        );
+      } else {
+        this.fetchData();
+      }
+    }, 1200); 
+  }
 }
