@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Giriş Yap</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    .bg-custom {
+      background-color: #00bcd4; /* Cyan background color */
+    }
+    .text-custom {
+      color: #000000; /* Black text color */
+    }
+    .input-custom {
+      background-color: #ffffff; /* White input background */
+      border-color: #000000; /* Black border color */
+    }
+    .focus-custom:focus {
+      border-color: #000000; /* Black border on focus */
+      box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1); /* Black shadow on focus */
+    }
+  </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+  <div class="bg-custom p-12 rounded-lg shadow-lg max-w-md w-full">
+    <h2 class="text-3xl font-bold text-custom mb-8">Giriş Yap</h2>
+    <form class="space-y-6" (ngSubmit)="handleLogin()">
+      <div>
+        <label for="email" class="block text-custom text-sm font-medium mb-2">E-posta</label>
+        <input type="email" id="email" name="email" required class="w-full p-4 border border-black rounded-lg input-custom focus-custom" placeholder="E-posta adresinizi girin">
+      </div>
+      <div>
+        <label for="password" class="block text-custom text-sm font-medium mb-2">Şifre</label>
+        <input type="password" id="password" name="password" required class="w-full p-4 border border-black rounded-lg input-custom focus-custom" placeholder="Şifrenizi girin">
+      </div>
+      <button type="submit" class="w-full py-4 px-6 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 focus:ring-4 focus:ring-black focus:outline-none">Giriş Yap</button>
+    </form>
+  </div>
+</body>
+</html>
