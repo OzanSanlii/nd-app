@@ -10,6 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { AppCalendar, HastaCalendarService } from '../randevu-takvim/app-calendar';
+import { AuthService } from '../Login-service/login-service'; // AuthService import edin
 
 @Component({
   selector: 'app-ana-sayfa',
@@ -37,7 +38,8 @@ export class AnaSayfaComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private _hastaCalendarService: HastaCalendarService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private authService: AuthService 
   ) {}
 
   ngOnInit(): void {

@@ -34,6 +34,16 @@ export class DataService {
             }
         });
     }
+
+    postData(url: string, data: any): Observable<any> {
+        url = baseUrl + url;
+        return this._httpClient.post(url, data, {
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          }
+        });
+      }
     
 
     putData(url: string, data: any) {

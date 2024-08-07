@@ -28,13 +28,31 @@
     <form class="space-y-6" (ngSubmit)="handleLogin()">
       <div>
         <label for="email" class="block text-custom text-sm font-medium mb-2">E-posta</label>
-        <input type="email" id="email" name="email" required class="w-full p-4 border border-black rounded-lg input-custom focus-custom" placeholder="E-posta adresinizi girin">
+        <input 
+          type="email" 
+          id="email" 
+          name="email" 
+          [(ngModel)]="username"
+          required 
+          class="w-full p-4 border border-black rounded-lg input-custom focus-custom" 
+          placeholder="E-posta adresinizi girin">
       </div>
       <div>
         <label for="password" class="block text-custom text-sm font-medium mb-2">Şifre</label>
-        <input type="password" id="password" name="password" required class="w-full p-4 border border-black rounded-lg input-custom focus-custom" placeholder="Şifrenizi girin">
+        <input 
+          type="password" 
+          id="password" 
+          name="password" 
+          [(ngModel)]="password"
+          required 
+          class="w-full p-4 border border-black rounded-lg input-custom focus-custom" 
+          placeholder="Şifrenizi girin">
       </div>
-      <button type="submit" class="w-full py-4 px-6 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 focus:ring-4 focus:ring-black focus:outline-none">Giriş Yap</button>
+      <button 
+        type="submit" 
+        class="w-full py-4 px-6 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 focus:ring-4 focus:ring-black focus:outline-none">
+        Giriş Yap
+      </button>
     </form>
   </div>
 </body>
