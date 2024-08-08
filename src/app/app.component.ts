@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AuthInterceptor } from './auth.interceptor'; 
+import { HttpClientModule } from '@angular/common/http'; // HTTP_INTERCEPTORS importu kaldırıldı
 
 @Component({
   selector: 'app-root',
@@ -18,9 +17,7 @@ import { AuthInterceptor } from './auth.interceptor';
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor,  multi: true }
-  ]
+  providers: [] // HTTP_INTERCEPTORS sağlayıcısı kaldırıldı
 })
 export class AppComponent {
   title = 'Doktor-app';

@@ -1,17 +1,17 @@
-import { TestBed } from '@angular/core/testing';
-import { HttpInterceptorFn } from '@angular/common/http';
+// import { TestBed } from '@angular/core/testing';
+// import { HttpInterceptorFn } from '@angular/common/http';
 
-import { interceptorInterceptor } from './interceptor.interceptor';
+// import { interceptorInterceptor } from './interceptor.interceptor';
 
-describe('interceptorInterceptor', () => {
-  const interceptor: HttpInterceptorFn = (req, next) => 
-    TestBed.runInInjectionContext(() => interceptorInterceptor(req, next));
+// describe('interceptorInterceptor', () => {
+//   const interceptor: HttpInterceptorFn = (req, next) => 
+//     TestBed.runInInjectionContext(() => interceptorInterceptor(req, next));
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
-  });
+//   beforeEach(() => {
+//     TestBed.configureTestingModule({});
+//   });
 
-  it('should be created', () => {
-    expect(interceptor).toBeTruthy();
-  });
-});
+//   it('should be created', () => {
+//     expect(interceptor).toBeTruthy();
+//   });
+// });

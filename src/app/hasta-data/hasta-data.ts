@@ -146,8 +146,9 @@ export class HastaDataService {
   }
 
   searchByName(searchValue: string): Observable<HastaData[]> {
-    return this.http.get<HastaData[]>(`http://localhost:5199/api/Kimlik/SearchByName/${searchValue}`);
-  }
+    const url = `Kimlik/SearchByName/${searchValue}`;
+    return this._dataService.getData(url) as Observable<HastaData[]>; // `getData` metodu ile dönüştür
+}
 
   fetchFullDetail(dosyano: string): void {
     this._dataService.getData(`Kimlik/${dosyano}`).pipe(
